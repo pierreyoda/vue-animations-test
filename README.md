@@ -1,4 +1,4 @@
-# vue-gsap-test
+# vue-animations-test
 
 ## Project setup
 ```
