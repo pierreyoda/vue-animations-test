@@ -48,6 +48,12 @@ const config = {
   */
   build: {
   },
+
+  vue: {
+    config: {
+      devtools: true,
+    },
+  },
 };
 
 export default config;
