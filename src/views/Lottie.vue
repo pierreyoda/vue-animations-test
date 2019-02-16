@@ -31,7 +31,7 @@
           @animation-loaded="instance => onAnimationLoaded(mainAnimationKey, instance)" />
       </div>
     </div>
-    <div class="container mx-auto text-left flex flex-col md:flex-row items-center">
+    <div class="container mx-auto text-left flex flex-col flex-wrap md:flex-row items-center">
       <div v-for="metaWithKey in animationWidgetsMetaWithKey" :key="metaWithKey.key"
         @click="setMainAnimation(metaWithKey.key)"
         class="animation-container cursor-pointer border border-grey-dark" :class="{ [metaWithKey.backgroundClass]: true }">
@@ -48,10 +48,14 @@ import { LottieInstance, LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
 import LottieAnimation from "@/components/LottieAnimation.vue";
 
-import pinJumpData from "@/assets/pin_jump.json";
 import checkData from "@/assets/check.json";
+import dotsData from "@/assets/dots.json";
+import drinksData from "@/assets/drinks.json";
 import gearsData from "@/assets/gears.json";
+import objectsData from "@/assets/objects.json";
+import pinJumpData from "@/assets/pin_jump.json";
 import searchData from "@/assets/search.json";
+import starData from "@/assets/star.json";
 import worldData from "@/assets/world.json";
 
 type AnimationButton = "play" | "pause" | "stop";
@@ -80,19 +84,21 @@ const initAnimation = (data: any, backgroundClass: string): AnimationMeta =>  ({
   },
 })
 export default class Lottie extends Vue {
-  mainAnimationKey = "pinJump";
+  mainAnimationKey = "objects";
   private readonly animations: {
     [key: string]: AnimationMeta,
   } = {
-    pinJump: initAnimation(pinJumpData, "bg-white"),
     check: initAnimation(checkData, "bg-indigo"),
+    dots: initAnimation(dotsData, "bg-pink-darker"),
+    drinks: initAnimation(drinksData, "bg-white"),
     gears: initAnimation(gearsData, "bg-yellow-dark"),
+    objects: initAnimation(objectsData, "bg-orange-light"),
+    pinJump: initAnimation(pinJumpData, "bg-white"),
     search: initAnimation(searchData, "bg-red-light"),
     world: initAnimation(worldData, "bg-blue-light"),
   };
 
   get mainAnimation(): AnimationMeta {
-    console.log('refresh main');
     return this.animations[this.mainAnimationKey];
   }
   get animationWidgetsMetaWithKey() {
