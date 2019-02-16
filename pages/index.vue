@@ -13,8 +13,10 @@
           <nuxt-link class="hero-btn" to="/anime">Anime.js</nuxt-link>
         </div>
       </div>
-      <div class="w-1/3 mx-auto">
-        <lottie-animation :options="heroAnimationOptions" :speed="0.7" width="100%" height="300px" />
+      <div class="w-1/3 mx-auto hero-demo-container">
+        <form-snake-animation v-if="!heroFormSent" @sent-fake="heroFormSent = true" />
+        <lottie-animation v-else @click.native="heroFormSent = false" class="cursor-pointer"
+          :options="heroAnimationOptions" :speed="0.7" width="100%" height="100%" />
       </div>
     </div>
     <div class="w-full px-6 py-8 bg-grey-dark text-grey-lighter">
@@ -63,6 +65,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 import { browserRequireJson, getPageTransitionKey } from "@/utils";
 import LottieAnimation from "@/components/LottieAnimation.vue";
+import FormSnakeAnimation from "@/components/FormSnakeAnimation.vue";
 
 interface StackItem {
   label: string;
@@ -72,10 +75,12 @@ interface StackItem {
 @Component({
   components: {
     LottieAnimation,
+    FormSnakeAnimation,
   },
   transition: getPageTransitionKey,
 })
 export default class Index extends Vue {
+  heroFormSent = false;
   heroAnimationOptions: LottieOptions = {};
   readonly stackItems: StackItem[] = [
     { label: "Typescript", img: "logo-ts.png" },
@@ -90,10 +95,15 @@ export default class Index extends Vue {
       this.heroAnimationOptions = {
         name: "hero",
         animationData: await browserRequireJson("lottie/done"),
-        loop: true,
+        loop: false,
         autoplay: true,
       };
     }
+  }
+
+  test() {
+    console.log("test");
+    this.heroFormSent = false;
   }
 
   isStackItemHovered(index: number): boolean {

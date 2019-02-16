@@ -16,37 +16,7 @@
           here</a>!
         </p>
       </div>
-      <div class="flex flex-col form-snake-container">
-        <svg class="form-snake-svg" viewBox="0 0 320 300">
-          <defs>
-            <linearGradient
-                            inkscape:collect="always"
-                            id="snakeLinearGradient"
-                            x1="13"
-                            y1="193.49992"
-                            x2="307"
-                            y2="193.49992"
-                            gradientUnits="userSpaceOnUse">
-              <stop
-                    style="stop-color:#ff00ff;"
-                    offset="0"
-                    id="stop876" />
-              <stop
-                    style="stop-color:#ff0000;"
-                    offset="1"
-                    id="stop878" />
-            </linearGradient>
-          </defs>
-          <path id="snakePath" d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
-        </svg>
-        <form class="form-snake" autocomplete="off" @submit.prevent="() => {}">
-          <label for="email">Email</label>
-          <input @focus="onFormSnakeInputFocused('email')" type="email" id="email">
-          <label for="username">Username</label>
-          <input @focus="onFormSnakeInputFocused('username')" type="text" id="username">
-          <input @focus="onFormSnakeInputFocused('submit')" type="button" class="submit" value="Register">
-        </form>
-      </div>
+      <form-snake-animation />
     </div>
   </div>
 </template>
@@ -60,143 +30,14 @@ if (process.browser) {
 }
 import { Component, Vue } from "vue-property-decorator";
 
-import { browserRequireJson, getPageTransitionKey } from "@/utils";
-
-// "snake highlight" form example taken from: https://codepen.io/ainalem/pen/EQXjOR
-// Article: https://blog.prototypr.io/how-to-create-the-snake-highlight-animation-with-anime-js-bf9c6cb66434
-// TODO: can we use PostCSS+SCSS in Single File Components?
-
-type SnakeAnimationState = "email" | "username" | "submit";
-interface SnakeAnimationStateParams {
-  targets: string;
-  strokeDashoffset: {
-    value: string | number;
-    duration: number;
-    easing: string;
-  };
-  strokeDasharray: {
-    value: string | number;
-    duration: number;
-    easing: string;
-  };
-}
-const snakeAnimationParams: {
-  [state in SnakeAnimationState]: SnakeAnimationStateParams;
-} = {
-  email: {
-    targets: "#snakePath",
-    strokeDashoffset: {
-      value: 0,
-      duration: 700,
-      easing: "easeOutQuart",
-    },
-    strokeDasharray: {
-      value: "240 1386",
-      duration: 700,
-      easing: "easeOutQuart",
-    },
-  },
-  username: {
-    targets: "#snakePath",
-    strokeDashoffset: {
-      value: -336,
-      duration: 700,
-      easing: "easeOutQuart",
-    },
-    strokeDasharray: {
-      value: "240 1386",
-      duration: 700,
-      easing: "easeOutQuart",
-    },
-  },
-  submit: {
-    targets: "#snakePath",
-    strokeDashoffset: {
-      value: -730,
-      duration: 700,
-      easing: "easeOutQuart",
-    },
-    strokeDasharray: {
-      value: "530 1386",
-      duration: 700,
-      easing: "easeOutQuart",
-    },
-  },
-};
+import { getPageTransitionKey } from "@/utils";
+import FormSnakeAnimation from "@/components/FormSnakeAnimation.vue";
 
 @Component({
   transition: getPageTransitionKey,
+  components: {
+    FormSnakeAnimation,
+  },
 })
-export default class AnimeJsDemo extends Vue {
-  currentFormSnakeAnimation: any = null;
-
-  onFormSnakeInputFocused(newState: SnakeAnimationState) {
-    if (!process.browser) { return; }
-    if (this.currentFormSnakeAnimation) {
-      this.currentFormSnakeAnimation.pause();
-    }
-    const animationParams = snakeAnimationParams[newState];
-    if (!animationParams) {
-      console.error(`Unknown snake animation state "${newState}".`);
-      return;
-    }
-    this.currentFormSnakeAnimation = anime(animationParams);
-  }
-}
+export default class AnimeJsDemo extends Vue {}
 </script>
-
-<style lang="postcss" scoped>
-.form-snake-container {
-  @apply mx-auto relative;
-  height: 320px;
-  width: 320px;
-  background-color: #474a59;
-  box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
-  color: #f1f1f2;
-  position: relative;
-}
-
-.form-snake-svg {
-  position: absolute;
-  width: 320px;
-}
-.form-snake-svg path {
-  fill: none;
-  stroke: url(#snakeLinearGradient);
-  stroke-width: 4;
-  stroke-dasharray: 240 1386;
-}
-.form-snake {
-  position: absolute;
-  margin: 40px;
-}
-.form-snake label {
-  display: block;
-  color: #c2c2c5;
-  font-size: 14px;
-  height: 16px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-}
-.form-snake input {
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  background: transparent;
-  border: 0;
-  color: #f2f2f2;
-  font-size: 20px;
-  outline: none !important;
-}
-.form-snake .submit {
-  color: #707075;
-  margin-top: 40px;
-  transition: color 300ms;
-}
-.form-snake .submit:focus {
-  color: #f2f2f2;
-}
-.form-snake .submit:active {
-  color: #d0d0d2;
-}
-</style>
