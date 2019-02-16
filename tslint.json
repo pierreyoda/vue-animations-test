@@ -6,7 +6,7 @@
   "linterOptions": {
     "exclude": [
       "node_modules/**",
-      "src/assets/**" // ignore JSON animation files (will crash the process)
+      "assets/**" // ignore JSON animation files (will crash the process)
     ]
   },
   "rules": {
@@ -19,5 +19,6 @@
     "arrow-parens": false,
     "member-access": false,
     "no-console": false
+    // "no-unused-variable": false
   }
 }

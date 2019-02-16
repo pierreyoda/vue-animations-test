@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto w-full">
+  <div class="container mx-auto w-full" v-if="dataLoaded">
     <div class="container mx-auto text-left flex flex-col md:flex-row items-center">
       <div class="w-full lg:w-1/2 flex flex-col justify-center items-start pt-12 pb-24 px-6">
         <p class="uppercase tracking-wide">After Effects exports!</p>
@@ -37,12 +37,12 @@
       </div>
     </div>
     <div class="container mx-auto text-left flex flex-col flex-wrap md:flex-row items-center">
-      <div v-for="metaWithKey in animationWidgetsMetaWithKey" :key="metaWithKey.key"
-        @click="setMainAnimation(metaWithKey.key)"
-        class="animation-container cursor-pointer border border-grey-dark" :class="{ [metaWithKey.backgroundClass]: true }">
-        <p class="uppercase tracking-wide text-center text-white">{{ metaWithKey.key }}</p>
-        <lottie-animation :options="metaWithKey.options" width="300px" height="300px"
-          @animation-loaded="instance => onAnimationLoaded(metaWithKey.key, instance)" />
+      <div v-for="meta in animationWidgetsMeta" :key="meta.key"
+        @click="setMainAnimation(meta.key)"
+        class="animation-container cursor-pointer border border-grey-dark" :class="{ [meta.backgroundClass]: true }">
+        <p class="uppercase tracking-wide text-center text-white">{{ meta.key }}</p>
+        <lottie-animation :options="meta.options" width="300px" height="300px"
+          @animation-loaded="instance => onAnimationLoaded(meta.key, instance)" />
       </div>
     </div>
   </div>
@@ -51,31 +51,34 @@
 <script lang="ts">
 import { LottieInstance, LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
+
 import LottieAnimation from "@/components/LottieAnimation.vue";
 
-import checkData from "@/assets/check.json";
-import dotsData from "@/assets/dots.json";
-import drinksData from "@/assets/drinks.json";
-import gearsData from "@/assets/gears.json";
-import objectsData from "@/assets/objects.json";
-import pinJumpData from "@/assets/pin_jump.json";
-import searchData from "@/assets/search.json";
-import starData from "@/assets/star.json";
-import worldData from "@/assets/world.json";
+const requireAnimationData = (filename: string): any => {
+  return process.browser
+    ? require(`~/assets/lottie/${filename}.json`)
+    : {};
+};
 
 type AnimationButton = "play" | "pause" | "stop";
 type AnimationStatus = "loading" | "playing" | "paused" | "stopped";
 
 interface AnimationMeta {
+  key: string;
   options: LottieOptions;
   instance?: LottieInstance;
   status: AnimationStatus;
   backgroundClass: string;
 }
 
-const initAnimation = (data: any, backgroundClass: string): AnimationMeta =>  ({
+interface AnimationCatalog {
+  [key: string]: AnimationMeta;
+}
+
+const loadAnimation = (filename: any, backgroundClass: string): AnimationMeta =>  ({
+  key: filename,
   options: {
-    animationData: data,
+    animationData: requireAnimationData(filename),
     loop: true,
     autoplay: true,
   },
@@ -83,39 +86,66 @@ const initAnimation = (data: any, backgroundClass: string): AnimationMeta =>  ({
   backgroundClass,
 });
 
+const loadAnimations = (
+  array: Array<{ filename: string, backgroundClass: string }>,
+): AnimationCatalog => {
+  return array.reduce(
+    (catalog: AnimationCatalog, info) => ({
+      ...catalog,
+      [info.filename]: loadAnimation(info.filename, info.backgroundClass),
+    }), {});
+};
+
 @Component({
   components: {
     LottieAnimation,
   },
+  loading: false,
 })
 export default class Lottie extends Vue {
+  dataLoaded = false;
   mainAnimationKey = "objects";
-  private readonly animations: {
-    [key: string]: AnimationMeta,
-  } = {
-    check: initAnimation(checkData, "bg-indigo"),
-    dots: initAnimation(dotsData, "bg-pink-darker"),
-    drinks: initAnimation(drinksData, "bg-white"),
-    gears: initAnimation(gearsData, "bg-yellow-dark"),
-    objects: initAnimation(objectsData, "bg-orange-light"),
-    pinJump: initAnimation(pinJumpData, "bg-white"),
-    search: initAnimation(searchData, "bg-red-light"),
-    world: initAnimation(worldData, "bg-blue-light"),
-  };
+  private animations: AnimationCatalog = {};
+
+  mounted() {
+    // wait for $loading to be available
+    this.$nextTick(this.loadAnimations);
+  }
+
+  loadAnimations() {
+    this.$nuxt.$loading.start();
+    // TODO: loading increment
+    this.animations = loadAnimations([
+      { filename: "check", backgroundClass: "bg-indigo" },
+      { filename: "dots", backgroundClass: "bg-pink-darker" },
+      { filename: "drinks", backgroundClass: "bg-white" },
+      { filename: "gears", backgroundClass: "bg-yellow-dark" },
+      { filename: "objects", backgroundClass: "bg-orange-light" },
+      { filename: "pin_jump", backgroundClass: "bg-white" },
+      { filename: "search", backgroundClass: "bg-red-light" },
+      { filename: "world", backgroundClass: "bg-blue-light" },
+    ]);
+    this.$nuxt.$loading.finish();
+    this.dataLoaded = true;
+  }
+
+  beforeDestroy() {
+    console.log("bef dest"); // TEMP
+    this.$nuxt.$loading.start();
+  }
 
   get mainAnimation(): AnimationMeta {
     return this.animations[this.mainAnimationKey];
   }
   get mainAnimationStatus(): AnimationStatus {
-    return this.mainAnimation.status;
+    const mainAnimation = this.animations[this.mainAnimationKey];
+    return mainAnimation ? mainAnimation.status : "loading";
   }
-  get animationWidgetsMetaWithKey() {
+  get animationWidgetsMeta() {
+    console.log(this.animations);
     return Object.keys(this.animations)
       .filter(key => key !== this.mainAnimationKey)
-      .map(key => ({
-        ...this.animations[key],
-        key,
-      }));
+      .map(key => this.animations[key]);
   }
 
   onAnimationLoaded(key: string, instance: LottieInstance) {

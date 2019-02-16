@@ -1,29 +1,30 @@
 {
   "name": "vue-animations-test",
   "version": "0.1.0",
-  "private": true,
+  "description": "Vue.js animations POCs with various libraries.",
   "author": "pierreyoda <pierreyoda@users.noreply.github.com>",
+  "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate",
+    "lint": "tslint --project ."
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
     "lottie-web": "^5.4.4",
-    "vue": "^2.5.22",
-    "vue-class-component": "^6.0.0",
-    "vue-property-decorator": "^7.0.0",
-    "vue-router": "^3.0.1"
+    "nuxt-ts": "^2.4.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-typescript": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
-    "is-extendable": "^1.0.1",
-    "node-sass": "^4.9.0",
+    "autoprefixer": "^9.4.7",
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.9",
     "sass-loader": "^7.1.0",
-    "tailwindcss": "^0.7.4",
-    "typescript": "^3.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "tailwindcss": "^0.7.0",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3",
+    "vue-property-decorator": "^7.3.0"
   }
 }

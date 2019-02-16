@@ -3,12 +3,17 @@
 </template>
 
 <script lang="ts">
-import Lottie, { LottieOptions, LottieInstance } from "lottie-web";
+import * as Lottie from "lottie-web";
+let lottie: typeof Lottie;
+if (process.browser) {
+  // tslint:disable-next-line: no-var-requires
+  lottie = require("lottie-web");
+}
 import { Component, Prop, Watch, Vue } from "vue-property-decorator";
 
 @Component
 export default class LottieAnimation extends Vue {
-  @Prop({ type: Object, required: true }) private readonly options!: LottieOptions;
+  @Prop({ type: Object, required: true }) private readonly options!: Lottie.LottieOptions;
   @Prop({ type: String, default: "100%" }) private readonly height!: string;
   @Prop({ type: String, default: "100%" }) private readonly width!: string;
 
@@ -18,10 +23,10 @@ export default class LottieAnimation extends Vue {
     overflow: "hidden",
     margin: "0 auto",
   };
-  private animation: LottieInstance | null = null;
+  private animation: Lottie.LottieInstance | null = null;
 
   @Watch("options", { immediate: false })
-  onOptionsChanged(options: LottieOptions) {
+  onOptionsChanged(options: Lottie.LottieOptions) {
     this.load(options);
   }
 
@@ -29,7 +34,10 @@ export default class LottieAnimation extends Vue {
     this.load(this.options);
   }
 
-  load(options: LottieOptions) {
+  load(options: Lottie.LottieOptions) {
+    if (!process.browser || !options.animationData) {
+      return;
+    }
     if (this.animation) {
       this.animation.destroy();
     }

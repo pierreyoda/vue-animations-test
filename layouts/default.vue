@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-full h-full bg-grey-light font-sans text-center leading-normal tracking-normal">
+  <div>
     <nav class="flex items-center justify-between flex-wrap bg-grey-darkest p-6 fixed w-full z-10 pin-t">
       <div class="flex items-center flex-no-shrink mr-6">
         <span class="text-2xl text-blue-light font-bold">Yabawt</span>
@@ -15,42 +15,51 @@
       </div>
       <div v-if="menuVisible" class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0">
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
-          <li class="mr-3">
-            <router-link @click.native="onTabClicked" class="nav-link" to="/lottie">
-              Lottie
-            </router-link>
-          </li>
-          <li class="mr-3">
-            <router-link @click.native="onTabClicked" class="nav-link" to="/anime">
-              Anime.js
-            </router-link>
+          <li v-for="tabLink in tabLinks" :key="tabLink.to" class="mr-3">
+            <nuxt-link @click.native="onTabClicked" class="nav-link" :to="tabLink.to">
+              {{ tabLink.label }}
+            </nuxt-link>
           </li>
         </ul>
       </div>
     </nav>
     <div class="container shadow-lg bg-white mt-24 md:mt-18 mx-auto">
-      <router-view/>
+      <nuxt/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Route } from "vue-router";
 import { Component, Vue } from "vue-property-decorator";
 
+interface TabLink {
+  to: string;
+  label: string;
+}
+
 @Component
-export default class App extends Vue {
+export default class DefaultLayout extends Vue {
+  private readonly tabLinks: TabLink[] = [
+    { to: "/", label: "Home" },
+    { to: "/lottie", label: "Lottie" },
+    { to: "/anime", label: "Anime.js" },
+  ];
+
   private readonly mobileBreakpoint = 992; // in pixels
   private mobileMode = false;
   private mobileMenuOpened = false;
 
   mounted() {
-    window.addEventListener("resize", this.onResize);
-    this.$nextTick(() => this.onResize());
+    if (process.browser) {
+      window.addEventListener("resize", this.onResize);
+      this.$nextTick(() => this.onResize());
+    }
   }
 
   beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
+    if (process.browser) {
+      window.removeEventListener("resize", this.onResize);
+    }
   }
 
   onResize() {
