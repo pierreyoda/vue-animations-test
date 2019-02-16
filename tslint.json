@@ -19,6 +19,5 @@
     "arrow-parens": false,
     "member-access": false,
     "no-console": false
-    // "no-unused-variable": false
   }
 }

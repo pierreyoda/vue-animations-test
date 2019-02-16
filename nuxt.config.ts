@@ -1,7 +1,7 @@
 // tslint:disable-next-line: no-var-requires
 const pkg = require("./package");
 
-export default {
+const config = {
   mode: "universal",
 
   /*
@@ -49,3 +49,5 @@ export default {
   build: {
   },
 };
+
+export default config;
