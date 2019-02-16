@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <nav class="flex items-center justify-between flex-wrap bg-grey-darkest p-6 fixed w-full z-10 pin-t">
+  <div class="flex flex-col">
+    <nav class="flex items-center justify-between flex-wrap bg-grey-darkest p-6 w-full">
       <div class="flex items-center flex-no-shrink mr-6">
-        <span class="text-2xl text-blue-light font-bold">Yabawt</span>
-        <h1 class="text-2xl text-white pl-2 font-semibold">Vue.js Animations Test</h1>
+        <span class="text-2xl text-green-light font-bold">Vue.js</span>
+        <h1 class="text-2xl text-white pl-2 font-semibold">Animations Test</h1>
       </div>
       <div class="block lg:hidden">
         <div @click="toggleNav" class="nav-toggle hover:text-white hover:border-white">
@@ -23,7 +23,7 @@
         </ul>
       </div>
     </nav>
-    <div class="container shadow-lg bg-white mt-24 md:mt-18 mx-auto">
+    <div class="w-full shadow-lg bg-white">
       <nuxt/>
     </div>
   </div>

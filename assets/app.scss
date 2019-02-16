@@ -9,18 +9,18 @@
  *
  * @import "tailwindcss/preflight";
  */
- @tailwind preflight;
+@tailwind preflight;
 
- /**
+/**
   * This injects any component classes registered by plugins.
   *
   * If using `postcss-import`, use this import instead:
   *
   * @import "tailwindcss/components";
   */
- @tailwind components;
+@tailwind components;
 
- /**
+/**
   * Here you would add any of your custom component classes; stuff that you'd
   * want loaded *before* the utilities so that the utilities could still
   * override them.
@@ -36,43 +36,66 @@
   * @import "components/forms";
   */
 
- .nav-toggle {
-   @apply outline-none flex items-center px-3 py-2 border rounded text-grey border-grey-dark;
- }
+.nav-toggle {
+  @apply outline-none flex items-center px-3 py-2 border rounded text-grey border-grey-dark;
+}
 
- .nav-link {
-   @apply inline-block no-underline py-2 px-4 text-grey-dark;
-   &:hover {
-     @apply text-red-light;
-   }
-   &.nuxt-link-exact-active {
-     @apply text-white;
-     &:hover {
-       @apply text-red;
-     }
-   }
- }
+.nav-link {
+  @apply inline-block no-underline py-2 px-4 text-grey-dark;
+  &:hover {
+    @apply text-red-light;
+  }
+  &.nuxt-link-exact-active {
+    @apply text-white;
+    &:hover {
+      @apply text-red;
+    }
+  }
+}
 
- .hero-btn {
-   @apply inline-block bg-white text-black no-underline mt-6 px-4 py-3 shadow-lg;
- }
+.hero-btn {
+  @apply inline-block bg-white text-black no-underline mt-6 px-4 py-3 shadow border border-transparent;
+  &:hover {
+    @apply text-red-dark border-red-dark;
+  }
+}
+.hero-link {
+  @apply no-underline text-blue-lighter;
+  &:hover {
+    @apply text-blue-light;
+  }
+}
 
- .animation-btn {
-   @apply bg-transparent text-black rounded shadow py-2 px-4 border border-black;
-   &:hover {
-     @apply bg-black text-white shadow-lg border-transparent;
-   }
-   &:disabled {
-     @apply bg-grey-light text-grey;
-   }
- }
+.stack-img {
+  @apply w-32 h-auto;
+  &.hovered {
+    @apply opacity-75;
+  }
+}
+.stack-label {
+  @apply text-grey-darker my-3;
+  &.hovered {
+    @apply text-red-dark;
+  }
+}
 
- .animation-container {
-   width: 400px;
-   height: 300px;
- }
+.animation-btn {
+  @apply bg-transparent text-black rounded shadow py-2 px-4 border border-black;
 
- /**
+  &:hover {
+    @apply bg-black text-white shadow-lg border-transparent;
+  }
+  &:disabled {
+    @apply bg-grey-light text-grey;
+  }
+}
+
+.animation-container {
+  width: 400px;
+  height: 300px;
+}
+
+/**
   * This injects all of Tailwind's utility classes, generated based on your
   * config file.
   *
@@ -80,9 +103,9 @@
   *
   * @import "tailwindcss/utilities";
   */
- @tailwind utilities;
+@tailwind utilities;
 
- /**
+/**
   * Here you would add any custom utilities you need that don't come out of the
   * box with Tailwind.
   *

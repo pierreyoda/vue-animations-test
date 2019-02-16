@@ -52,13 +52,8 @@
 import { LottieInstance, LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
 
+import { browserRequireJson } from "@/utils";
 import LottieAnimation from "@/components/LottieAnimation.vue";
-
-const requireAnimationData = (filename: string): any => {
-  return process.browser
-    ? require(`~/assets/lottie/${filename}.json`)
-    : {};
-};
 
 type AnimationButton = "play" | "pause" | "stop";
 type AnimationStatus = "loading" | "playing" | "paused" | "stopped";
@@ -79,7 +74,8 @@ interface AnimationCatalog {
 const loadAnimation = async (filename: any, backgroundClass: string): Promise<AnimationMeta> =>  ({
   key: filename,
   options: {
-    animationData: await requireAnimationData(filename),
+    name: filename,
+    animationData: await browserRequireJson(`lottie/${filename}.json`),
     loop: true,
     autoplay: true,
   },
@@ -105,7 +101,7 @@ const loadAnimations = async (
   components: {
     LottieAnimation,
   },
-  loading: false,
+  loading: true,
 })
 export default class LottieDemo extends Vue {
   dataLoaded = false;
@@ -123,10 +119,9 @@ export default class LottieDemo extends Vue {
     this.animations = await loadAnimations([
       { filename: "check", backgroundClass: "bg-indigo" },
       { filename: "dots", backgroundClass: "bg-pink-darker" },
-      { filename: "drinks", backgroundClass: "bg-white" },
+      { filename: "fireworks", backgroundClass: "bg-blue-darkest" },
       { filename: "gears", backgroundClass: "bg-yellow-dark" },
       { filename: "objects", backgroundClass: "bg-orange-light" },
-      { filename: "pin_jump", backgroundClass: "bg-white" },
       { filename: "search", backgroundClass: "bg-red-light" },
       { filename: "world", backgroundClass: "bg-blue-light" },
     ], (percentage: number) => {
