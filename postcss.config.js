@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
       "pages/**/*.vue",
       "plugins/**/*.ts",
     ],
-    whitelist: ["html", "body", "nuxt-progress"],
+    whitelist: ["html", "body", "nuxt-progress", "nuxt-link-active", "nuxt-link-exact-active"],
     styleExtensions: [".scss", ".css"],
     extractors: [
       {
