@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto w-full">
+  <div class="container mx-auto w-full" v-if="dataLoaded">
     <div class="container mx-auto text-left flex flex-col md:flex-row items-center">
       <div class="w-full lg:w-1/2 flex flex-col justify-center items-start pt-12 pb-24 px-6">
         <p class="uppercase tracking-wide">After Effects exports!</p>
@@ -56,7 +56,7 @@ import LottieAnimation from "@/components/LottieAnimation.vue";
 
 const requireAnimationData = (filename: string): any => {
   return process.browser
-    ? import(`~/assets/lottie/${filename}.json`)
+    ? require(`~/assets/lottie/${filename}.json`)
     : {};
 };
 
@@ -100,27 +100,49 @@ const loadAnimations = (
   components: {
     LottieAnimation,
   },
+  loading: false,
 })
 export default class Lottie extends Vue {
+  dataLoaded = false;
   mainAnimationKey = "objects";
-  private readonly animations = loadAnimations([
-    { filename: "check", backgroundClass: "bg-indigo" },
-    { filename: "dots", backgroundClass: "bg-pink-darker" },
-    { filename: "drinks", backgroundClass: "bg-white" },
-    { filename: "gears", backgroundClass: "bg-yellow-dark" },
-    { filename: "objects", backgroundClass: "bg-orange-light" },
-    { filename: "pinkJump", backgroundClass: "bg-white" },
-    { filename: "search", backgroundClass: "bg-red-light" },
-    { filename: "world", backgroundClass: "bg-blue-light" },
-  ]);
+  private animations: AnimationCatalog = {};
+
+  mounted() {
+    // wait for $loading to be available
+    this.$nextTick(this.loadAnimations);
+  }
+
+  loadAnimations() {
+    this.$nuxt.$loading.start();
+    // TODO: loading increment
+    this.animations = loadAnimations([
+      { filename: "check", backgroundClass: "bg-indigo" },
+      { filename: "dots", backgroundClass: "bg-pink-darker" },
+      { filename: "drinks", backgroundClass: "bg-white" },
+      { filename: "gears", backgroundClass: "bg-yellow-dark" },
+      { filename: "objects", backgroundClass: "bg-orange-light" },
+      { filename: "pin_jump", backgroundClass: "bg-white" },
+      { filename: "search", backgroundClass: "bg-red-light" },
+      { filename: "world", backgroundClass: "bg-blue-light" },
+    ]);
+    this.$nuxt.$loading.finish();
+    this.dataLoaded = true;
+  }
+
+  beforeDestroy() {
+    console.log("bef dest"); // TEMP
+    this.$nuxt.$loading.start();
+  }
 
   get mainAnimation(): AnimationMeta {
     return this.animations[this.mainAnimationKey];
   }
   get mainAnimationStatus(): AnimationStatus {
-    return this.mainAnimation.status;
+    const mainAnimation = this.animations[this.mainAnimationKey];
+    return mainAnimation ? mainAnimation.status : "loading";
   }
   get animationWidgetsMeta() {
+    console.log(this.animations);
     return Object.keys(this.animations)
       .filter(key => key !== this.mainAnimationKey)
       .map(key => this.animations[key]);

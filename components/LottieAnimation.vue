@@ -35,7 +35,7 @@ export default class LottieAnimation extends Vue {
   }
 
   load(options: Lottie.LottieOptions) {
-    if (!process.browser) {
+    if (!process.browser || !options.animationData) {
       return;
     }
     if (this.animation) {
