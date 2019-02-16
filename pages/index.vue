@@ -108,3 +108,12 @@ export default class Index extends Vue {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.stack-img.hovered {
+  @apply opacity-75;
+}
+.stack-label.hovered {
+  @apply text-red-dark;
+}
+</style>

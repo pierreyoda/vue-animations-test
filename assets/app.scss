@@ -68,15 +68,9 @@
 
 .stack-img {
   @apply w-32 h-auto;
-  &.hovered {
-    @apply opacity-75;
-  }
 }
 .stack-label {
   @apply text-grey-darker my-3;
-  &.hovered {
-    @apply text-red-dark;
-  }
 }
 
 .animation-btn {

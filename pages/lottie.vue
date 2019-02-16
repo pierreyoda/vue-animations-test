@@ -85,13 +85,10 @@ const loadAnimation = async (filename: any, backgroundClass: string): Promise<An
 
 const loadAnimations = async (
   array: Array<{ filename: string, backgroundClass: string }>,
-  increaseLoadingPercentage: (percentage: number) => void,
 ): Promise<AnimationCatalog> => {
   const catalog: AnimationCatalog = {};
-  const animationLoadingPercentage = 100 / array.length;
   await Promise.all(array.map(async (item) => {
     const animation = await loadAnimation(item.filename, item.backgroundClass);
-    increaseLoadingPercentage(animationLoadingPercentage);
     catalog[animation.key] = animation;
   }));
   return catalog;
@@ -101,12 +98,14 @@ const loadAnimations = async (
   components: {
     LottieAnimation,
   },
-  loading: true,
+  loading: false,
 })
 export default class LottieDemo extends Vue {
   dataLoaded = false;
   mainAnimationKey = "objects";
   private animations: AnimationCatalog = {};
+  private animationsLoaded = 0;
+  private animationLoadingPercentage = 0;
 
   mounted() {
     // wait for $loading to be available
@@ -114,8 +113,7 @@ export default class LottieDemo extends Vue {
   }
 
   async loadAnimations() {
-    const loading = this.$nuxt.$loading;
-    loading.start();
+    this.$nuxt.$loading.start();
     this.animations = await loadAnimations([
       { filename: "check", backgroundClass: "bg-indigo" },
       { filename: "dots", backgroundClass: "bg-pink-darker" },
@@ -124,12 +122,8 @@ export default class LottieDemo extends Vue {
       { filename: "objects", backgroundClass: "bg-orange-light" },
       { filename: "search", backgroundClass: "bg-red-light" },
       { filename: "world", backgroundClass: "bg-blue-light" },
-    ], (percentage: number) => {
-      // FIXME: possibly undefined error?
-      // loading.increase(percentage);
-      console.log(percentage);
-    });
-    loading.finish();
+    ]);
+    this.animationLoadingPercentage = 100 / (Object.keys(this.animations).length || 1);
     this.dataLoaded = true;
   }
 
@@ -158,6 +152,12 @@ export default class LottieDemo extends Vue {
     }
     meta.instance = instance;
     meta.status = meta.options.autoplay ? "playing" : "stopped";
+    // FIXME: cannot invoke an object which is possibly undefined...
+    const loading = this.$nuxt.$loading;
+    (loading as any).increase(this.animationLoadingPercentage);
+    if (++this.animationsLoaded >= Object.keys(this.animations).length) {
+      (loading as any).finish();
+    }
   }
 
   setMainAnimation(key: string) {
