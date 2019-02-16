@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Lottie, { LottieOptions, LottieInstance } from "lottie-web";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Watch, Vue } from "vue-property-decorator";
 
 @Component
 export default class LottieAnimation extends Vue {
@@ -18,12 +18,24 @@ export default class LottieAnimation extends Vue {
     overflow: "hidden",
     margin: "0 auto",
   };
-  private animation!: LottieInstance;
+  private animation: LottieInstance | null = null;
+
+  @Watch('options', { immediate: false })
+  onOptionsChanged(options: LottieOptions) {
+    this.load(options);
+  }
 
   mounted() {
+    this.load(this.options);
+  }
+
+  load(options: LottieOptions) {
+    if (this.animation) {
+      this.animation.destroy();
+    }
     this.animation = Lottie.loadAnimation({
       renderer: "svg",
-      ...this.options,
+      ...options,
       container: this.$refs.container,
     });
     this.$emit("animation-loaded", this.animation);

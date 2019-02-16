@@ -25,15 +25,16 @@
           </button>
         </div>
       </div>
-      <div class="w-full lg:w-1/2 flex flex-col justify-center items-center lg:py-6">
-        <p class="text-teal-darker">Pin Jump Animation</p>
-        <lottie-animation :options="mainAnimation.options"
+      <div class="w-full lg:w-1/2 flex flex-col justify-center items-center lg:py-6"
+        :class="{ [mainAnimation.backgroundClass]: true }">
+        <lottie-animation :options="mainAnimation.options" width="500px" height="500px"
           @animation-loaded="instance => onAnimationLoaded(mainAnimationKey, instance)" />
       </div>
     </div>
     <div class="container mx-auto text-left flex flex-col md:flex-row items-center">
       <div v-for="metaWithKey in animationWidgetsMetaWithKey" :key="metaWithKey.key"
-        class="animation-container" :class="{ [metaWithKey.widgetBackgroundClass]: true }">
+        @click="setMainAnimation(metaWithKey.key)"
+        class="animation-container cursor-pointer border border-grey-dark" :class="{ [metaWithKey.backgroundClass]: true }">
         <p class="uppercase tracking-wide text-center text-white">{{ metaWithKey.key }}</p>
         <lottie-animation :options="metaWithKey.options" width="300px" height="300px"
           @animation-loaded="instance => onAnimationLoaded(metaWithKey.key, instance)" />
@@ -60,17 +61,17 @@ interface AnimationMeta {
   options: LottieOptions;
   instance?: LottieInstance;
   status: AnimationStatus;
-  widgetBackgroundClass: string;
+  backgroundClass: string;
 }
 
-const initAnimation = (data: any, bgClass: string): AnimationMeta =>  ({
+const initAnimation = (data: any, backgroundClass: string): AnimationMeta =>  ({
   options: {
     animationData: data,
     loop: true,
     autoplay: true,
   },
   status: "loading",
-  widgetBackgroundClass: bgClass,
+  backgroundClass,
 });
 
 @Component({
@@ -79,7 +80,7 @@ const initAnimation = (data: any, bgClass: string): AnimationMeta =>  ({
   },
 })
 export default class Lottie extends Vue {
-  readonly mainAnimationKey = "pinJump";
+  mainAnimationKey = "pinJump";
   private readonly animations: {
     [key: string]: AnimationMeta,
   } = {
@@ -91,6 +92,7 @@ export default class Lottie extends Vue {
   };
 
   get mainAnimation(): AnimationMeta {
+    console.log('refresh main');
     return this.animations[this.mainAnimationKey];
   }
   get animationWidgetsMetaWithKey() {
@@ -110,6 +112,16 @@ export default class Lottie extends Vue {
     }
     meta.instance = instance;
     meta.status = meta.options.autoplay ? "playing" : "stopped";
+  }
+
+  setMainAnimation(key: string) {
+    const meta = this.animations[key];
+    if (!meta) {
+      console.error(`Unknown animation "${key}".`);`
+      return;`
+    }
+    this.mainAnimationKey = key;
+    meta.status = 'loading';
   }
 
   animationButtonEnabled(key: string, button: AnimationButton): boolean {
