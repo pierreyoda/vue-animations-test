@@ -20,7 +20,7 @@ export default class LottieAnimation extends Vue {
   };
   private animation: LottieInstance | null = null;
 
-  @Watch('options', { immediate: false })
+  @Watch("options", { immediate: false })
   onOptionsChanged(options: LottieOptions) {
     this.load(options);
   }

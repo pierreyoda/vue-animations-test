@@ -131,11 +131,11 @@ export default class Lottie extends Vue {
   setMainAnimation(key: string) {
     const meta = this.animations[key];
     if (!meta) {
-      console.error(`Unknown animation "${key}".`);`
-      return;`
+      console.error(`Unknown animation "${key}".`);
+      return;
     }
     this.mainAnimationKey = key;
-    meta.status = 'loading';
+    meta.status = "loading";
   }
 
   animationButtonEnabled(key: string, button: AnimationButton): boolean {
