@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { Route } from 'vue-router';
+import { Route } from "vue-router";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
@@ -45,12 +45,12 @@ export default class App extends Vue {
   private mobileMenuOpened = false;
 
   mounted() {
-    window.addEventListener('resize', this.onResize);
+    window.addEventListener("resize", this.onResize);
     this.$nextTick(() => this.onResize());
   }
 
   beforeDestroy() {
-    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener("resize", this.onResize);
   }
 
   onResize() {
