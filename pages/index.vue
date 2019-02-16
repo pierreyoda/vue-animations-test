@@ -103,7 +103,7 @@ export default class Index extends Vue {
     this.stackHoveredIndex = index;
   }
 
-  onMouseLeaveStackItem(_index: number) {
+  onMouseLeaveStackItem(_: number) {
     this.stackHoveredIndex = -1;
   }
 }
