@@ -51,7 +51,6 @@
 <script lang="ts">
 import { LottieInstance, LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
-import { NuxtLoading } from "@nuxt/vue-app";
 
 import LottieAnimation from "@/components/LottieAnimation.vue";
 
@@ -90,13 +89,13 @@ const loadAnimation = async (filename: any, backgroundClass: string): Promise<An
 
 const loadAnimations = async (
   array: Array<{ filename: string, backgroundClass: string }>,
-  loading: NuxtLoading,
+  increaseLoadingPercentage: (percentage: number) => void,
 ): Promise<AnimationCatalog> => {
   const catalog: AnimationCatalog = {};
-  const animationLoadPercentage = 100 / array.length;
+  const animationLoadingPercentage = 100 / array.length;
   await Promise.all(array.map(async (item) => {
     const animation = await loadAnimation(item.filename, item.backgroundClass);
-    loading.increase(animationLoadPercentage);
+    increaseLoadingPercentage(animationLoadingPercentage);
     catalog[animation.key] = animation;
   }));
   return catalog;
@@ -108,7 +107,7 @@ const loadAnimations = async (
   },
   loading: false,
 })
-export default class Lottie extends Vue {
+export default class LottieDemo extends Vue {
   dataLoaded = false;
   mainAnimationKey = "objects";
   private animations: AnimationCatalog = {};
@@ -119,7 +118,8 @@ export default class Lottie extends Vue {
   }
 
   async loadAnimations() {
-    this.$nuxt.$loading.start();
+    const loading = this.$nuxt.$loading;
+    loading.start();
     this.animations = await loadAnimations([
       { filename: "check", backgroundClass: "bg-indigo" },
       { filename: "dots", backgroundClass: "bg-pink-darker" },
@@ -129,13 +129,16 @@ export default class Lottie extends Vue {
       { filename: "pin_jump", backgroundClass: "bg-white" },
       { filename: "search", backgroundClass: "bg-red-light" },
       { filename: "world", backgroundClass: "bg-blue-light" },
-    ], this.$nuxt.$loading);
-    this.$nuxt.$loading.finish();
+    ], (percentage: number) => {
+      // FIXME: possibly undefined error?
+      // loading.increase(percentage);
+      console.log(percentage);
+    });
+    loading.finish();
     this.dataLoaded = true;
   }
 
   beforeDestroy() {
-    console.log("bef dest"); // TEMP
     this.$nuxt.$loading.start();
   }
 
@@ -147,7 +150,6 @@ export default class Lottie extends Vue {
     return mainAnimation ? mainAnimation.status : "loading";
   }
   get animationWidgetsMeta() {
-    console.log(this.animations);
     return Object.keys(this.animations)
       .filter(key => key !== this.mainAnimationKey)
       .map(key => this.animations[key]);
