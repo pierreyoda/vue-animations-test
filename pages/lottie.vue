@@ -51,6 +51,7 @@
 <script lang="ts">
 import { LottieInstance, LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
+import { NuxtLoading } from "@nuxt/vue-app";
 
 import LottieAnimation from "@/components/LottieAnimation.vue";
 
@@ -63,6 +64,7 @@ const requireAnimationData = (filename: string): any => {
 type AnimationButton = "play" | "pause" | "stop";
 type AnimationStatus = "loading" | "playing" | "paused" | "stopped";
 
+// TODO: add attribution somewhere
 interface AnimationMeta {
   key: string;
   options: LottieOptions;
@@ -75,10 +77,10 @@ interface AnimationCatalog {
   [key: string]: AnimationMeta;
 }
 
-const loadAnimation = (filename: any, backgroundClass: string): AnimationMeta =>  ({
+const loadAnimation = async (filename: any, backgroundClass: string): Promise<AnimationMeta> =>  ({
   key: filename,
   options: {
-    animationData: requireAnimationData(filename),
+    animationData: await requireAnimationData(filename),
     loop: true,
     autoplay: true,
   },
@@ -86,14 +88,18 @@ const loadAnimation = (filename: any, backgroundClass: string): AnimationMeta =>
   backgroundClass,
 });
 
-const loadAnimations = (
+const loadAnimations = async (
   array: Array<{ filename: string, backgroundClass: string }>,
-): AnimationCatalog => {
-  return array.reduce(
-    (catalog: AnimationCatalog, info) => ({
-      ...catalog,
-      [info.filename]: loadAnimation(info.filename, info.backgroundClass),
-    }), {});
+  loading: NuxtLoading,
+): Promise<AnimationCatalog> => {
+  const catalog: AnimationCatalog = {};
+  const animationLoadPercentage = 100 / array.length;
+  await Promise.all(array.map(async (item) => {
+    const animation = await loadAnimation(item.filename, item.backgroundClass);
+    loading.increase(animationLoadPercentage);
+    catalog[animation.key] = animation;
+  }));
+  return catalog;
 };
 
 @Component({
@@ -112,10 +118,9 @@ export default class Lottie extends Vue {
     this.$nextTick(this.loadAnimations);
   }
 
-  loadAnimations() {
+  async loadAnimations() {
     this.$nuxt.$loading.start();
-    // TODO: loading increment
-    this.animations = loadAnimations([
+    this.animations = await loadAnimations([
       { filename: "check", backgroundClass: "bg-indigo" },
       { filename: "dots", backgroundClass: "bg-pink-darker" },
       { filename: "drinks", backgroundClass: "bg-white" },
@@ -124,7 +129,7 @@ export default class Lottie extends Vue {
       { filename: "pin_jump", backgroundClass: "bg-white" },
       { filename: "search", backgroundClass: "bg-red-light" },
       { filename: "world", backgroundClass: "bg-blue-light" },
-    ]);
+    ], this.$nuxt.$loading);
     this.$nuxt.$loading.finish();
     this.dataLoaded = true;
   }
