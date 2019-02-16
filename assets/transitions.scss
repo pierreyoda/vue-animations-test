@@ -1,0 +1,42 @@
+.appear-enter-active,
+.appear-leave-active {
+  transition: opacity 1s ease-in;
+}
+
+.appear-enter,
+.appear-leave-to {
+  opacity: 0;
+}
+
+// Slide transitions:
+// Inspiration: https://markus.oberlehner.net/blog/vue-router-page-transitions/
+
+$slide-transition-offset: 5em;
+$slide-transition-time: 0.5s;
+
+body {
+  // Prevent scrollbars from appearing
+  overflow-x: hidden;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: $slide-transition-time / 2;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden;
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate($slide-transition-offset, 0);
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(-$slide-transition-offset, 0);
+}

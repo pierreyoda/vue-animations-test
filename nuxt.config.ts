@@ -29,6 +29,7 @@ const config = {
   */
   css: [
     "~/assets/app.scss",
+    "~/assets/transitions.scss",
   ],
 
   /*

@@ -61,7 +61,7 @@
 import { LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
 
-import { browserRequireJson } from "@/utils";
+import { browserRequireJson, getPageTransitionKey } from "@/utils";
 import LottieAnimation from "@/components/LottieAnimation.vue";
 
 interface StackItem {
@@ -73,6 +73,7 @@ interface StackItem {
   components: {
     LottieAnimation,
   },
+  transition: getPageTransitionKey,
 })
 export default class Index extends Vue {
   heroAnimationOptions: LottieOptions = {};

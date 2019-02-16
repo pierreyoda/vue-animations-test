@@ -18,6 +18,7 @@
     "no-consecutive-blank-lines": false,
     "arrow-parens": false,
     "member-access": false,
-    "no-console": false
+    "no-console": false,
+    "one-variable-per-declaration": false
   }
 }

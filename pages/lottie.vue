@@ -52,7 +52,7 @@
 import { LottieInstance, LottieOptions } from "lottie-web";
 import { Component, Vue } from "vue-property-decorator";
 
-import { browserRequireJson } from "@/utils";
+import { browserRequireJson, getPageTransitionKey } from "@/utils";
 import LottieAnimation from "@/components/LottieAnimation.vue";
 
 type AnimationButton = "play" | "pause" | "stop";
@@ -99,6 +99,7 @@ const loadAnimations = async (
     LottieAnimation,
   },
   loading: false,
+  transition: getPageTransitionKey,
 })
 export default class LottieDemo extends Vue {
   dataLoaded = false;

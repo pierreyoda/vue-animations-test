@@ -58,8 +58,9 @@ if (process.browser) {
   // tslint:disable-next-line: no-var-requires
   anime = require("animejs").default;
 }
-
 import { Component, Vue } from "vue-property-decorator";
+
+import { browserRequireJson, getPageTransitionKey } from "@/utils";
 
 // "snake highlight" form example taken from: https://codepen.io/ainalem/pen/EQXjOR
 // Article: https://blog.prototypr.io/how-to-create-the-snake-highlight-animation-with-anime-js-bf9c6cb66434
@@ -123,7 +124,9 @@ const snakeAnimationParams: {
   },
 };
 
-@Component
+@Component({
+  transition: getPageTransitionKey,
+})
 export default class AnimeJsDemo extends Vue {
   currentFormSnakeAnimation: any = null;
 

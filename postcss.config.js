@@ -16,6 +16,12 @@ if (process.env.NODE_ENV === "production") {
       "plugins/**/*.ts",
     ],
     whitelist: ["html", "body", "nuxt-progress", "nuxt-link-active", "nuxt-link-exact-active"],
+    whitelistPatterns: [
+      /-enter-active$/,
+      /-leave-active$/,
+      /-enter$/,
+      /-leave-to$/,
+    ],
     styleExtensions: [".scss", ".css"],
     extractors: [
       {
