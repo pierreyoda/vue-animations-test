@@ -10,17 +10,22 @@
           many supports. In this case, Lottie-Web can play this animation in a canvas,
           in SVG or with DOM elements.
         </p>
-        <div class="mt-4 w-full flex flex-row justify-between flex-wrap">
-          <button @click="animationPlay(mainAnimationKey)" :disabled="!animationButtonEnabled(mainAnimationKey, 'play')"
+        <div class="mt-4 w-full flex flex-row justify-center flex-wrap">
+          <button v-if="mainAnimationStatus !== 'playing'"
+            @click="animationPlay(mainAnimationKey)"
+            :disabled="!animationButtonEnabled(mainAnimationKey, 'play')"
             class="animation-btn play">
             Play
           </button>
-          <button @click="animationPause(mainAnimationKey)" :disabled="!animationButtonEnabled(mainAnimationKey, 'pause')"
+          <button  v-else
+            @click="animationPause(mainAnimationKey)"
+            :disabled="!animationButtonEnabled(mainAnimationKey, 'pause')"
             class="animation-btn pause">
             Pause
           </button>
-          <button @click="animationStop(mainAnimationKey)" :disabled="!animationButtonEnabled(mainAnimationKey, 'stop')"
-            class="animation-btn stop">
+          <button @click="animationStop(mainAnimationKey)"
+            :disabled="!animationButtonEnabled(mainAnimationKey, 'stop')"
+            class="animation-btn stop ml-12">
             Stop
           </button>
         </div>
@@ -100,6 +105,9 @@ export default class Lottie extends Vue {
 
   get mainAnimation(): AnimationMeta {
     return this.animations[this.mainAnimationKey];
+  }
+  get mainAnimationStatus(): AnimationStatus {
+    return this.mainAnimation.status;
   }
   get animationWidgetsMetaWithKey() {
     return Object.keys(this.animations)
