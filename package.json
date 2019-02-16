@@ -13,6 +13,7 @@
     "lint": "tslint --project ."
   },
   "dependencies": {
+    "animejs": "^3.0.1",
     "cross-env": "^5.2.0",
     "lottie-web": "^5.4.4",
     "nuxt-ts": "^2.4.3"
