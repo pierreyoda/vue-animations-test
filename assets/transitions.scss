@@ -1,8 +1,21 @@
+.nav-appear-enter-active,
+.nav-appear-leave-active {
+  transition-duration: 0.2s;
+  transition-property: max-height, opacity;
+  transition-timing-function: ease-in;
+  max-height: 200px;
+  overflow: hidden;
+}
+.nav-appear-enter,
+.nav-appear-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
 .appear-enter-active,
 .appear-leave-active {
   transition: opacity 1s ease-in;
 }
-
 .appear-enter,
 .appear-leave-to {
   opacity: 0;

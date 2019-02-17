@@ -36,6 +36,7 @@ const config = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    "~/plugins/vue-clickaway",
   ],
 
   /*
@@ -48,6 +49,8 @@ const config = {
   ** Build configuration
   */
   build: {
+    // https://championswimmer.in/vuex-module-decorators/pages/installation.html#es5-transpilation
+    transpile: ["vuex-module-decorator"],
   },
 
   vue: {

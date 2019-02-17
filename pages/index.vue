@@ -1,19 +1,19 @@
 <template>
   <div class="w-full bg-grey-lighter">
-    <div class="container max-w-xl mx-auto py-24 text-left flex items-center flex-wrap">
-      <div class="w-full md:w-2/3">
+    <div class="container max-w-xl mx-auto py-24 flex flex-col lg:flex-row items-center justify-center flex-wrap">
+      <div class="w-full md:w-2/3 text-center">
         <h2 class="text-2xl md:text-4xl text-grey-darkest mb-12">
           Vue + Animations POCs
         </h2>
         <p class="text-md md:text-lg text-grey-dark mb-6">
           Exploration of common solutions for displaying advanced animations in Vue.js.
         </p>
-        <div class="flex flex-row flex-wrap items-center justify-start">
+        <div class="flex flex-row flex-wrap items-center justify-center lg:justify-start">
           <nuxt-link class="hero-btn mr-12" to="/lottie">Lottie</nuxt-link>
           <nuxt-link class="hero-btn" to="/anime">Anime.js</nuxt-link>
         </div>
       </div>
-      <div class="w-1/3 mx-auto hero-demo-container">
+      <div class="flex flex-col justify-center mt-12 lg:mt-0 hero-demo-container">
         <form-snake-animation v-if="!heroFormSent" @sent-fake="heroFormSent = true" />
         <lottie-animation v-else @click.native="heroFormSent = false" class="cursor-pointer"
           :options="heroAnimationOptions" :speed="0.7" width="100%" height="100%" />
@@ -35,9 +35,9 @@
     </div>
     <div class="w-full py-16 bg-white">
       <div class="container max-w-xl mx-auto px-12 flex flex-wrap">
-        <div class="w-full md:w-1/2 flex flex-wrap">
+        <div class="mt-12 w-full md:w-1/2 flex flex-wrap">
           <div v-for="(item, i) in stackItems" :key="i"
-            class="w-full md:w-1/2 flex flex-col justify-center">
+            class="w-full sm:w-1/2 flex flex-col justify-center">
             <img :src="`/${item.img}`" class="stack-img" :class="{ hovered: isStackItemHovered(i) }"
               @mouseover="onMouseOverStackItem(i)" @mouseleave="onMouseLeaveStackItem(i)" />
           </div>
@@ -121,10 +121,17 @@ export default class Index extends Vue {
 </script>
 
 <style lang="postcss" scoped>
+.stack-img {
+  @apply w-32 h-auto;
+}
 .stack-img.hovered {
   @apply opacity-75;
 }
+
+.stack-label {
+  @apply rounded-lg my-3 border-2 border-grey-darker bg-grey-dark py-3 px-4 text-center text-white ;
+}
 .stack-label.hovered {
-  @apply text-red-dark;
+  @apply border-grey-darkest text-grey-light;
 }
 </style>

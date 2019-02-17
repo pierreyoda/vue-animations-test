@@ -36,6 +36,10 @@
   * @import "components/forms";
   */
 
+.nav-toggle-container {
+  @apply absolute;
+  right: 10%;
+}
 .nav-toggle {
   @apply outline-none flex items-center px-3 py-2 border rounded text-grey border-grey-dark;
 }
@@ -66,14 +70,8 @@
   }
 }
 .hero-demo-container {
+  width: 300px;
   height: 300px;
-}
-
-.stack-img {
-  @apply w-32 h-auto;
-}
-.stack-label {
-  @apply text-grey-darker my-3;
 }
 
 .animation-btn {
@@ -88,6 +86,7 @@
 }
 
 .animation-container {
+  @apply cursor-pointer border border-pink-darkest;
   width: 400px;
   height: 300px;
 }

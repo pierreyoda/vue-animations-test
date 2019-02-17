@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto w-full" v-if="dataLoaded">
     <div class="container mx-auto text-left flex flex-col md:flex-row items-center">
-      <div class="w-full lg:w-1/2 flex flex-col justify-center items-start pt-12 pb-24 px-6">
+      <div class="w-full xl:w-1/2 flex flex-col justify-center items-start pt-12 pb-24 px-6">
         <p class="uppercase tracking-wide">After Effects exports!</p>
         <h1 class="my-4 text-grey-darkest text-3xl">Airbnb Lottie-Web</h1>
         <p>
@@ -9,6 +9,9 @@
           most features. Lottie then allows us to faithfully display this animation on
           many supports. In this case, Lottie-Web can play this animation in a canvas,
           in SVG or with DOM elements.
+        </p>
+        <p class="mt-4">
+          Click on an animation to focus it.
         </p>
         <div class="mt-4 w-full flex flex-row justify-center flex-wrap">
           <button v-if="mainAnimationStatus !== 'playing'"
@@ -30,18 +33,18 @@
           </button>
         </div>
       </div>
-      <div class="w-full lg:w-1/2 flex flex-col justify-center items-center lg:py-6"
+      <div class="w-full xl:w-1/2 flex flex-col justify-center items-center xl:py-6 border border-pink-darkest"
         :class="{ [mainAnimation.backgroundClass]: true }">
         <lottie-animation :options="mainAnimation.options" width="500px" height="500px"
           @animation-loaded="instance => onAnimationLoaded(mainAnimationKey, instance)" />
       </div>
     </div>
-    <div class="container mx-auto text-left flex flex-col flex-wrap md:flex-row items-center">
+    <div class="container mx-auto text-left flex flex-col flex-wrap md:flex-row items-center justify-center">
       <div v-for="meta in animationWidgetsMeta" :key="meta.key"
         @click="setMainAnimation(meta.key)"
-        class="animation-container cursor-pointer border border-grey-dark" :class="{ [meta.backgroundClass]: true }">
+        class="flex flex-col justify-center animation-container" :class="{ [meta.backgroundClass]: true }">
         <p class="uppercase tracking-wide text-center text-white">{{ meta.key }}</p>
-        <lottie-animation :options="meta.options" width="300px" height="300px"
+        <lottie-animation :options="meta.options" max-height="200px"
           @animation-loaded="instance => onAnimationLoaded(meta.key, instance)" />
       </div>
     </div>
@@ -50,7 +53,8 @@
 
 <script lang="ts">
 import { LottieInstance, LottieOptions } from "lottie-web";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Watch, Vue } from "vue-property-decorator";
+import { Getter } from "vuex-class";
 
 import { browserRequireJson, getPageTransitionKey } from "@/utils";
 import LottieAnimation from "@/components/LottieAnimation.vue";
@@ -77,7 +81,7 @@ const loadAnimation = async (filename: any, backgroundClass: string): Promise<An
     name: filename,
     animationData: await browserRequireJson(`lottie/${filename}.json`),
     loop: true,
-    autoplay: true,
+    autoplay: false,
   },
   status: "loading",
   backgroundClass,
@@ -102,11 +106,30 @@ const loadAnimations = async (
   transition: getPageTransitionKey,
 })
 export default class LottieDemo extends Vue {
+  @Getter("app/mobileMode")
+  mobileMode!: boolean;
+
   dataLoaded = false;
   mainAnimationKey = "objects";
   private animations: AnimationCatalog = {};
   private animationsLoaded = 0;
   private animationLoadingPercentage = 0;
+
+  @Watch("mobileMode")
+  onMobileModeToggled(mobileMode: boolean) {
+    // only play the main animation in mobile mode
+    if (mobileMode) {
+      for (const animationWidgetMeta of this.animationWidgetsMeta) {
+        animationWidgetMeta.instance!.stop();
+        animationWidgetMeta.status = "stopped";
+      }
+    } else {
+      for (const animationWidgetMeta of this.animationWidgetsMeta) {
+        animationWidgetMeta.instance!.play();
+        animationWidgetMeta.status = "playing";
+      }
+    }
+  }
 
   mounted() {
     // wait for $loading to be available
@@ -152,7 +175,11 @@ export default class LottieDemo extends Vue {
       return;
     }
     meta.instance = instance;
-    meta.status = meta.options.autoplay ? "playing" : "stopped";
+    const autoplaying = !this.mobileMode || key === this.mainAnimationKey;
+    if (autoplaying) {
+      instance.play();
+    }
+    meta.status = meta.options.autoplay || autoplaying ? "playing" : "stopped";
     // FIXME: cannot invoke an object which is possibly undefined...
     const loading = this.$nuxt.$loading;
     (loading as any).increase(this.animationLoadingPercentage);
@@ -162,13 +189,19 @@ export default class LottieDemo extends Vue {
   }
 
   setMainAnimation(key: string) {
-    const meta = this.animations[key];
-    if (!meta) {
+    const next = this.animations[key];
+    if (!next) {
       console.error(`Unknown animation "${key}".`);
       return;
     }
+    if (this.mobileMode) {
+      const current = this.animations[this.mainAnimationKey];
+      current.instance!.stop();
+      current.status = "stopped";
+    }
     this.mainAnimationKey = key;
-    meta.status = "loading";
+    next.status = "loading";
+    window.scrollTo(0, this.mobileMode ? 450 : 80);
   }
 
   animationButtonEnabled(key: string, button: AnimationButton): boolean {
