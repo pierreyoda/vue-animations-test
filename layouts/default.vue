@@ -17,10 +17,16 @@
       <transition name="nav-appear">
         <div v-if="menuVisible" class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0">
           <ul class="list-reset lg:flex justify-end flex-1 items-center text-center">
-            <li v-for="tabLink in tabLinks" :key="tabLink.to" class="mr-3">
+            <li v-for="tabLink in tabLinks" :key="tabLink.to" class="nav-link-item">
               <nuxt-link @click.native="closeNav" class="nav-link" :to="tabLink.to">
                 {{ tabLink.label }}
               </nuxt-link>
+            </li>
+            <li class="flex flex-row items-center justify-center nav-link-item">
+              <img src="/logo-github.png" class="nav-link-icon">
+              <a class="inline-block no-underline text-grey-light hover:text-grey" href="https://github.com/pierreyoda/vue-animations-test">
+                Github
+              </a>
             </li>
           </ul>
         </div>

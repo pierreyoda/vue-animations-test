@@ -1,7 +1,7 @@
 <template>
   <div class="w-full bg-grey-lighter">
     <div class="container max-w-xl mx-auto py-24 flex flex-col lg:flex-row items-center justify-center flex-wrap">
-      <div class="w-full md:w-2/3 text-center pr-4">
+      <div class="w-full md:w-2/3 text-center pr-12">
         <h2 class="text-2xl md:text-4xl text-grey-darkest mb-12">
           Vue + Animations POCs
         </h2>

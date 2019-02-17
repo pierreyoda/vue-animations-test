@@ -44,8 +44,16 @@
   @apply outline-none flex items-center px-3 py-2 border rounded text-grey border-grey-dark;
 }
 
+.nav-link-item {
+  @apply mr-3 py-2 px-4;
+  &:hover {
+    .nav-link-icon {
+      @apply opacity-50;
+    }
+  }
+}
 .nav-link {
-  @apply inline-block no-underline py-2 px-4 text-grey-dark;
+  @apply inline-block no-underline text-grey-dark;
   &:hover {
     @apply text-red-light;
   }
@@ -55,6 +63,9 @@
       @apply text-red;
     }
   }
+}
+.nav-link-icon {
+  @apply w-auto h-5 mr-2;
 }
 
 .hero-btn {
