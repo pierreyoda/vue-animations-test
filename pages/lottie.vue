@@ -42,7 +42,7 @@
     <div class="container mx-auto text-left flex flex-col flex-wrap md:flex-row items-center justify-center">
       <div v-for="meta in animationWidgetsMeta" :key="meta.key"
         @click="setMainAnimation(meta.key)"
-        class="flex flex-col justify-center animation-container" :class="{ [meta.backgroundClass]: true }">
+        class="max-w-full flex flex-col justify-center animation-container" :class="{ [meta.backgroundClass]: true }">
         <p class="uppercase tracking-wide text-center text-white">{{ meta.key }}</p>
         <lottie-animation :options="meta.options" max-height="200px"
           @animation-loaded="instance => onAnimationLoaded(meta.key, instance)" />
