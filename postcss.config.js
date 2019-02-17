@@ -1,12 +1,13 @@
-const join = require("path").join
-const tailwindJS = join(__dirname, "tailwind.js")
+const join = require("path").join;
+const tailwindJS = join(__dirname, "tailwind.js");
+
+const production = process.env.NODE_ENV === "production";
 
 const plugins = [
   require("tailwindcss")(tailwindJS),
-  require("autoprefixer"),
 ];
 
-if (process.env.NODE_ENV === "production") {
+if (production) {
   plugins.push(require("@fullhuman/postcss-purgecss")({
     content: [
       "*.html",
@@ -25,9 +26,9 @@ if (process.env.NODE_ENV === "production") {
     styleExtensions: [".scss", ".css"],
     extractors: [
       {
-        extractor: class {
+        extractor: class TailwindExtractor  {
           static extract(content) {
-            return content.match(/[A-Za-z0-9-_:\/]+/g);
+            return content.match(/[A-z0-9-:\/]+/g) || [];
           }
         },
         extensions: ['html', 'vue', 'js', 'ts'],
@@ -36,6 +37,18 @@ if (process.env.NODE_ENV === "production") {
   }));
 }
 
+plugins.push(
+  require("autoprefixer"),
+);
+
+if (production) {
+  plugins.push(
+    require("cssnano")({
+      preset: "default",
+    }),
+  );
+}
+
 module.exports = {
   plugins,
-}
+};
