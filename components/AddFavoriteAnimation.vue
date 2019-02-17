@@ -164,6 +164,9 @@ $sprinkles-color: #f98247;
 .favorite__inactive {
   transform-origin: 50% 50%;
   fill: $not-favorite-color;
+  &:hover {
+    fill: $is-favorite-color;
+  }
 }
 
 .favorite__active {
@@ -172,15 +175,6 @@ $sprinkles-color: #f98247;
   opacity: 1;
   fill: $is-favorite-color;
 }
-
-// .favorite:not(.animating) {
-//   .favorite__inactive:hover {
-//     fill: $is-favorite-color;
-//   }
-//   .favorite__active:hover {
-//     fill: $not-favorite-color;
-//   }
-// }
 
 .favorite__halo-outer {
   transform-origin: 50% 50%;
