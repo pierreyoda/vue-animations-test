@@ -22,7 +22,12 @@ const config = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: "#fff" },
+  loading: {
+    color: "#ff0077",
+    throttle: 50,
+    duration: 500,
+    continuous: true,
+  },
 
   /*
   ** Global CSS

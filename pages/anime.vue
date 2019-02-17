@@ -57,16 +57,25 @@ import FormSnakeAnimation from "@/components/FormSnakeAnimation.vue";
 import SubmitAnimation from "@/components/SubmitAnimation.vue";
 
 @Component({
-  transition: getPageTransitionKey,
   components: {
     AddFavoriteAnimation,
     DeerRabbitAnimation,
     FormSnakeAnimation,
     SubmitAnimation,
   },
+  loading: false, // TODO: why is manual progress bar control needed?
+  transition: getPageTransitionKey,
 })
 export default class AnimeJsDemo extends Vue {
   favorite = false;
+
+  mounted() {
+    this.$nextTick(() => this.$nuxt.$loading.finish());
+  }
+
+  beforeDestroy() {
+    this.$nuxt.$loading.start();
+  }
 }
 </script>
 

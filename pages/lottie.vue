@@ -132,12 +132,10 @@ export default class LottieDemo extends Vue {
   }
 
   mounted() {
-    // wait for $loading to be available
     this.$nextTick(this.loadAnimations);
   }
 
   async loadAnimations() {
-    this.$nuxt.$loading.start();
     this.animations = await loadAnimations([
       { filename: "done", backgroundClass: "bg-indigo" },
       { filename: "dots", backgroundClass: "bg-pink-darker" },

@@ -79,6 +79,7 @@ interface StackItem {
     LottieAnimation,
     FormSnakeAnimation,
   },
+  loading: false,
   transition: getPageTransitionKey,
 })
 export default class Index extends Vue {
@@ -93,6 +94,10 @@ export default class Index extends Vue {
   private stackHoveredIndex = -1;
 
   async mounted() {
+    this.$nextTick(this.loadAnimations);
+  }
+
+  async loadAnimations() {
     if (process.browser) {
       this.heroAnimationOptions = {
         name: "hero",
@@ -101,6 +106,11 @@ export default class Index extends Vue {
         autoplay: true,
       };
     }
+    this.$nuxt.$loading.finish();
+  }
+
+  beforeDestroy() {
+    this.$nuxt.$loading.start();
   }
 
   isStackItemHovered(index: number): boolean {
