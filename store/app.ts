@@ -10,11 +10,6 @@ export default class AppModule extends VuexModule {
 
   @Mutation
   setMobileMode(isMobileMode: boolean) {
-    if (!isMobileMode) {
-      this.isMobileNavMenuOpened = false;
-    } else if (!this.isMobileMode) {
-      this.isMobileNavMenuOpened = false;
-    }
     this.isMobileMode = isMobileMode;
   }
   @Mutation

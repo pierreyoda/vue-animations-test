@@ -36,6 +36,10 @@
   * @import "components/forms";
   */
 
+nav {
+  min-height: 84px;
+}
+
 .nav-toggle-container {
   @apply absolute;
   right: 10%;
@@ -69,12 +73,12 @@
 }
 
 .hero-btn {
-  @apply inline-block bg-white text-black no-underline mt-6 px-4 py-3 shadow border border-transparent;
+  @apply bg-blue text-white text-lg no-underline font-semibold px-8 py-3 rounded-full;
   &:hover {
-    @apply text-red-dark border-red-dark;
+    @apply bg-blue-dark;
   }
 }
-.hero-link {
+.template-link {
   @apply no-underline text-blue-lighter;
   &:hover {
     @apply text-blue-light;
@@ -83,6 +87,16 @@
 .hero-demo-container {
   width: 300px;
   height: 300px;
+}
+
+.demo-headline {
+  @apply uppercase tracking-wide text-lg text-orange-dark;
+}
+.demo-title {
+  @apply text-grey-darkest text-3xl;
+}
+.demo-description {
+  @apply text-left text-lg text-grey-dark leading-normal;
 }
 
 .animation-btn {
@@ -97,7 +111,17 @@
 }
 
 .animation-container {
-  @apply cursor-pointer border border-pink-darkest;
+  @apply border border-pink-darkest;
+}
+.main-animation-container {
+  @apply animation-container;
+  // height: 500px;
+  @screen lg {
+    min-height: 500px;
+  }
+}
+.widget-animation-container {
+  @apply cursor-pointer animation-container;
   width: 400px;
   height: 300px;
 }

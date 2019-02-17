@@ -32,7 +32,7 @@
         </div>
       </transition>
     </nav>
-    <div id="content" :class="{ loading: firstResize }" class="w-full shadow-lg bg-white">
+    <div id="content" :class="{ loading: firstResize }" class="w-full shadow-lg bg-blue-lightest">
       <nuxt/>
     </div>
   </div>
@@ -87,6 +87,10 @@ export default class DefaultLayout extends Vue {
     const width = window.innerWidth;
     const mobileMode = width < this.mobileBreakpoint;
     if (this.firstResize || mobileMode !== this.mobileMode) {
+      const menuOpened = this.firstResize
+        ? !mobileMode
+        : mobileMode;
+      this.setMobileNavMenuOpened(menuOpened);
       this.setMobileMode(mobileMode);
     }
   }
@@ -102,8 +106,12 @@ export default class DefaultLayout extends Vue {
   }
 
   get menuVisible(): boolean {
+    // TODO: improve this (no menu on mobile initial loading mobile)
+    if (this.firstResize) {
+      return false;
+    }
     return this.mobileMode
-      ? !this.firstResize && this.mobileNavMenuOpened
+      ? this.mobileNavMenuOpened
       : true;
   }
 }

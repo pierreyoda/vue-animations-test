@@ -1,19 +1,21 @@
 <template>
   <div class="container mx-auto w-full" v-if="dataLoaded">
     <div class="container mx-auto text-left flex flex-col md:flex-row items-center">
-      <div class="w-full xl:w-1/2 flex flex-col justify-center items-start pt-12 pb-24 px-6">
-        <p class="uppercase tracking-wide">After Effects exports!</p>
-        <h1 class="my-4 text-grey-darkest text-3xl">Airbnb Lottie-Web</h1>
-        <p>
+      <div class="w-full xl:w-1/2 flex flex-col justify-center items-start pt-12 pb-4 px-6">
+        <p class="demo-headline">After Effects exports!</p>
+        <h1 class="my-4 demo-title">Airbnb Lottie-Web</h1>
+        <p class="demo-description">
           After Effects animations can be exported as a JSON with a plugin supporting
           most features. Lottie then allows us to faithfully display this animation on
-          many supports. In this case, Lottie-Web can play this animation in a canvas,
+          many supports.
+        <p class="mt-6 demo-description">
+          In this case, Lottie-Web can play this animation in a canvas,
           in SVG or with DOM elements.
         </p>
-        <p class="mt-4">
+        <p class="mt-6 demo-description">
           Click on an animation to focus it.
         </p>
-        <div class="mt-4 w-full flex flex-row justify-center flex-wrap">
+        <div class="mt-20 w-full flex flex-row justify-center flex-wrap">
           <button v-if="mainAnimationStatus !== 'playing'"
             @click="animationPlay(mainAnimationKey)"
             :disabled="!animationButtonEnabled(mainAnimationKey, 'play')"
@@ -33,16 +35,16 @@
           </button>
         </div>
       </div>
-      <div class="w-full xl:w-1/2 flex flex-col justify-center items-center xl:py-6 border border-pink-darkest"
+      <div class="w-full xl:w-1/2 flex flex-col justify-center xl:py-6 main-animation-container"
         :class="{ [mainAnimation.backgroundClass]: true }">
-        <lottie-animation :options="mainAnimation.options" width="500px" height="500px"
+        <lottie-animation :options="mainAnimation.options" width="auto" height="mainAnimationHeight"
           @animation-loaded="instance => onAnimationLoaded(mainAnimationKey, instance)" />
       </div>
     </div>
     <div class="container mx-auto text-left flex flex-col flex-wrap md:flex-row items-center justify-center">
       <div v-for="meta in animationWidgetsMeta" :key="meta.key"
         @click="setMainAnimation(meta.key)"
-        class="max-w-full flex flex-col justify-center animation-container" :class="{ [meta.backgroundClass]: true }">
+        class="max-w-full flex flex-col justify-center widget-animation-container" :class="{ [meta.backgroundClass]: true }">
         <p class="uppercase tracking-wide text-center text-white">{{ meta.key }}</p>
         <lottie-animation :options="meta.options" max-height="200px"
           @animation-loaded="instance => onAnimationLoaded(meta.key, instance)" />
@@ -160,6 +162,12 @@ export default class LottieDemo extends Vue {
     const mainAnimation = this.animations[this.mainAnimationKey];
     return mainAnimation ? mainAnimation.status : "loading";
   }
+  get mainAnimationHeight(): string {
+    return this.mobileMode
+      ? "200px"
+      : "450px";
+  }
+
   get animationWidgetsMeta() {
     return Object.keys(this.animations)
       .filter(key => key !== this.mainAnimationKey)

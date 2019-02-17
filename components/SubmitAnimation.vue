@@ -68,7 +68,7 @@ export default class SubmitAnimation extends Vue {
         duration: 1300,
         height: 10,
         width: 300,
-        backgroundColor: "#2b2d2f",
+        backgroundColor: "#474a59",
         border: "0",
         borderRadius: 100,
       })
@@ -114,7 +114,7 @@ export default class SubmitAnimation extends Vue {
 
 .button {
   @apply absolute text-center my-0 mx-auto cursor-pointer;
-  background: #2b2d2f;
+  background-color: #474a59;
   height: 80px;
   width: 200px;
   top: 50%;
@@ -125,8 +125,7 @@ export default class SubmitAnimation extends Vue {
 }
 
 .text {
-  @apply absolute font-bold text-xl;
-  color: #71dfbe;
+  @apply absolute font-bold text-xl text-grey-light;
   top: 50%;
   transform: translateY(-52%);
   left: 0;
@@ -134,7 +133,7 @@ export default class SubmitAnimation extends Vue {
 }
 
 .progress-bar {
-  @apply absolute cursor-pointer bg-teal;
+  @apply absolute cursor-pointer bg-orange-dark;
   height: 10px;
   width: 0;
   right: 0;

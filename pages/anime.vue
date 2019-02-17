@@ -1,14 +1,14 @@
 <template>
   <div class="container mx-auto w-full">
-    <div class="container mx-auto py-12 text-left flex flex-col md:flex-row items-center">
+    <div class="container mx-auto pt-4 pb-12 text-left flex flex-col md:flex-row items-center">
       <div class="w-full lg:w-1/2 flex flex-col justify-center items-start pt-12 pb-24 px-6">
-        <p class="uppercase tracking-wide">Interactive animations!</p>
-        <h2 class="my-4 text-grey-darkest text-3xl mb-6">Anime.js</h2>
-        <p class="mb-12">
+        <p class="demo-headline">Interactive animations!</p>
+        <h2 class="my-4 mb-6 demo-title">Anime.js</h2>
+        <p class="mb-12 demo-description">
           Anime.js is a lightweight JavaScript animation library with a simple, yet powerful API.
           It works with CSS properties, SVG, DOM attributes and JavaScript Objects.
         </p>
-        <p>
+        <p class="demo-description">
           The amazing following form snake animation was created by Mikael Ainalem
           and the whole process is described
           <a class="uppercase no-underline text-blue-dark hover:text-blue-darker"
@@ -19,20 +19,20 @@
       <form-snake-animation />
     </div>
     <div class="container mx-auto flex flex-col md:flex-row flex-wrap items-start justify-center">
-      <div class="w-full md:w-1/2 demo-container">
-        <p class="uppercase mb-24">
-          Favorited = {{ favorite ? 'yes' : 'no' }} (Click to toggle)
+      <div class="w-full md:w-1/3 demo-container">
+        <p class="demo-label mb-16 pb-2">
+          Favorited = {{ favorite ? 'yes' : 'no' }}
         </p>
         <add-favorite-animation @change="value => favorite = value" />
       </div>
-      <div class="w-full md:w-1/2 demo-container mt-12 md:mt-0">
-        <p class="uppercase mb-6">
+      <div class="w-full md:w-1/3 demo-container mt-12 md:mt-0">
+        <p class="demo-label mb-6">
           Deer or rabbit?
         </p>
         <deer-rabbit-animation class="deer-rabbit" />
       </div>
-      <div class="w-full md:w-1/2 demo-container mt-12 md:mt-0 py-20">
-        <p class="uppercase mb-32">
+      <div class="w-full md:w-1/3 demo-container mt-12 md:mt-0 pb-24 md:pb-0">
+        <p class="demo-label mb-32">
           Submit button
         </p>
         <submit-animation />
@@ -84,7 +84,7 @@ export default class AnimeJsDemo extends Vue {
   @apply flex flex-col items-center justify-center;
 }
 .demo-label {
-  @apply uppercase;
+  @apply text-lg text-grey-darkest;
 }
 
 .deer-rabbit {
