@@ -2,7 +2,9 @@
 
 > Vue.js animations POC with various libraries.
 
-## Build Setup
+[Link to the demo](https://infallible-heyrovsky-6f54e3.netlify.com/).
+
+## Development & Build
 
 ``` bash
 # install dependencies
@@ -12,11 +14,10 @@ $ yarn install
 $ yarn run dev
 
 # build for production and launch server
-$ yarn run build
-$ yarn start
+$ yarn run start:build
 
 # generate static project
 $ yarn run generate
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+Where ```yarn``` can be replaced by ```npm```.
