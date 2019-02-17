@@ -1,11 +1,11 @@
 <template>
   <div class="w-full bg-grey-lighter">
     <div class="container max-w-xl mx-auto py-24 flex flex-col lg:flex-row items-center justify-center flex-wrap">
-      <div class="w-full md:w-2/3 text-center">
+      <div class="w-full md:w-2/3 text-center pr-4">
         <h2 class="text-2xl md:text-4xl text-grey-darkest mb-12">
           Vue + Animations POCs
         </h2>
-        <p class="text-md md:text-lg text-grey-dark mb-6">
+        <p class="text-md md:text-lg text-left text-grey-dark mb-6">
           Exploration of common solutions for displaying advanced animations in Vue.js.
         </p>
         <div class="flex flex-row flex-wrap items-center justify-center lg:justify-start">
@@ -13,10 +13,12 @@
           <nuxt-link class="hero-btn" to="/anime">Anime.js</nuxt-link>
         </div>
       </div>
-      <div class="flex flex-col justify-center mt-12 lg:mt-0 hero-demo-container">
-        <form-snake-animation v-if="!heroFormSent" @sent-fake="heroFormSent = true" />
-        <lottie-animation v-else @click.native="heroFormSent = false" class="cursor-pointer"
-          :options="heroAnimationOptions" :speed="0.7" width="100%" height="100%" />
+      <div class="w-full md:w-1/3 flex flex-col justify-center mt-12 lg:mt-0 hero-demo-container">
+        <transition name="fade" mode="out-in">
+          <form-snake-animation v-if="!heroFormSent" @sent-fake="heroFormSent = true" />
+          <lottie-animation v-else @click.native="heroFormSent = false" class="cursor-pointer"
+            :options="heroAnimationOptions" :speed="0.7" width="100%" height="100%" />
+        </transition>
       </div>
     </div>
     <div class="w-full px-6 py-8 bg-grey-dark text-grey-lighter">
@@ -99,11 +101,6 @@ export default class Index extends Vue {
         autoplay: true,
       };
     }
-  }
-
-  test() {
-    console.log("test");
-    this.heroFormSent = false;
   }
 
   isStackItemHovered(index: number): boolean {

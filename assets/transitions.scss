@@ -12,13 +12,21 @@
   opacity: 0;
 }
 
-.appear-enter-active,
-.appear-leave-active {
-  transition: opacity 1s ease-in;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease-in;
 }
-.appear-enter,
-.appear-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
+}
+
+#content {
+  // initial load page transition
+  transition: opacity 0.5s ease-in;
+  &.loading {
+    opacity: 0;
+  }
 }
 
 // Slide transitions:
@@ -28,8 +36,7 @@ $slide-transition-offset: 5em;
 $slide-transition-time: 0.5s;
 
 body {
-  // Prevent scrollbars from appearing
-  overflow-x: hidden;
+  overflow-x: hidden; // prevent scrollbars from appearing
 }
 
 .slide-left-enter-active,

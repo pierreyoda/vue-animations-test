@@ -26,7 +26,7 @@
         </div>
       </transition>
     </nav>
-    <div class="w-full shadow-lg bg-white">
+    <div id="content" :class="{ loading: firstResize }" class="w-full shadow-lg bg-white">
       <nuxt/>
     </div>
   </div>
@@ -96,9 +96,8 @@ export default class DefaultLayout extends Vue {
   }
 
   get menuVisible(): boolean {
-    if (this.firstResize) { return false; }
     return this.mobileMode
-      ? this.mobileNavMenuOpened
+      ? !this.firstResize && this.mobileNavMenuOpened
       : true;
   }
 }

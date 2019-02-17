@@ -9,7 +9,7 @@ export const browserRequireJson = async (filename: string): Promise<any> => {
 };
 
 export type PageRoutingName = "index" | "lottie" | "anime";
-export type PageTransitionName = "slide-left" | "slide-right" | "appear";
+export type PageTransitionName = "slide-left" | "slide-right" | "fade";
 
 const pageRoutingNamesOrdered: PageRoutingName[] = ["index", "lottie", "anime"];
 const getPageOrderIndex = (name: PageRoutingName): number =>
@@ -19,7 +19,9 @@ export const getPageTransitionKey = (
   to: Route,
   from: Route,
 ): PageTransitionName => {
-  if (!from) { return "appear"; }
+  if (!from) {
+    return "fade";
+  }
   const fromIndex = getPageOrderIndex(from.name as PageRoutingName);
   if (fromIndex < 0) {
     console.error(`Unknown page routing name "${from.name}".`);

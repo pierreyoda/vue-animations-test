@@ -3,7 +3,7 @@
     <div class="button" @click="clicked">
       <div class="text">Click Me</div>
     </div>
-    <div class="progress-bar"></div>
+    <div class="progress-bar" @click="clicked"></div>
       <svg @click="clicked" x="0px" y="0px" viewBox="0 0 25 30" style="enable-background:new 0 0 25 30;">
         <path ref="path" class="check" d="M2,19.2C5.9,23.6,9.4,28,9.4,28L23,2"
           :style="{ strokeDashOffset }"/>
