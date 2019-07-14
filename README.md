@@ -2,7 +2,7 @@
 
 > Vue.js animations POC with various libraries.
 
-[Link to the demo](https://infallible-heyrovsky-6f54e3.netlify.com/).
+[Link to the demo](https://vue-animations-test.netlify.com/).
 
 ## Development & Build
 
