@@ -1,23 +1,31 @@
 {
-  "extends": "@nuxt/typescript",
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
   ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "skipLibCheck": true,
-    "types": [
-      "@types/node",
-      "@nuxt/vue-app"
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/@nuxt",
+      "types"
     ],
-    "typeRoots": ["types"],
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+    },
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "typescript-tslint-plugin",
         "configFile": "./tslint.json"
       }
     ],
+    "downlevelIteration": true,
     "importHelpers": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

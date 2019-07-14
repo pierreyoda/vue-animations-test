@@ -1,7 +1,11 @@
+import NuxtConfiguration from "@nuxt/config";
+
 // tslint:disable-next-line: no-var-requires
 const pkg = require("./package");
 
-const config = {
+const production = process.env.NODE_ENV === "production";
+
+const config: NuxtConfiguration = {
   mode: "universal",
 
   /*
@@ -54,6 +58,43 @@ const config = {
   ** Build configuration
   */
   build: {
+    extractCSS: true,
+    postcss: {
+      plugins: [
+        require("tailwindcss"),
+        require("autoprefixer"),
+        production && require("@fullhuman/postcss-purgecss")({
+          content: [
+            "*.html",
+            "components/**/*.vue",
+            "layouts/**/*.vue",
+            "pages/**/*.vue",
+            "plugins/**/*.ts",
+          ],
+          whitelist: ["html", "body", "nuxt-progress", "nuxt-link-active", "nuxt-link-exact-active"],
+          whitelistPatterns: [
+            /-enter-active$/,
+            /-leave-active$/,
+            /-enter$/,
+            /-leave-to$/,
+          ],
+          styleExtensions: [".scss", ".css"],
+          extractors: [
+            {
+              extractor: class TailwindExtractor  {
+                static extract(content: string) {
+                  return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
+                }
+              },
+              extensions: ["html", "vue", "js", "ts"],
+            },
+          ],
+        }),
+        production && require("cssnano")({
+          preset: "default",
+        }),
+      ],
+    },
     // https://championswimmer.in/vuex-module-decorators/pages/installation.html#es5-transpilation
     transpile: ["vuex-module-decorator"],
   },
