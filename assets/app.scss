@@ -1,51 +1,17 @@
-/**
- * This injects Tailwind's base styles, which is a combination of
- * Normalize.css and some additional base styles.
- *
- * You can see the styles here:
- * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/preflight";
- */
-@tailwind preflight;
-
-/**
-  * This injects any component classes registered by plugins.
-  *
-  * If using `postcss-import`, use this import instead:
-  *
-  * @import "tailwindcss/components";
-  */
+@tailwind base;
 @tailwind components;
-
-/**
-  * Here you would add any of your custom component classes; stuff that you'd
-  * want loaded *before* the utilities so that the utilities could still
-  * override them.
-  *
-  * Example:
-  *
-  * .btn { ... }
-  * .form-input { ... }
-  *
-  * Or if using a preprocessor or `postcss-import`:
-  *
-  * @import "components/buttons";
-  * @import "components/forms";
-  */
+@tailwind utilities;
 
 nav {
   min-height: 84px;
 }
 
 .nav-toggle-container {
-  @apply absolute;
   right: 10%;
+  @apply absolute;
 }
 .nav-toggle {
-  @apply outline-none flex items-center px-3 py-2 border rounded text-grey border-grey-dark;
+  @apply outline-none flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600;
 }
 
 .nav-link-item {
@@ -57,14 +23,14 @@ nav {
   }
 }
 .nav-link {
-  @apply inline-block no-underline text-grey-dark;
+  @apply inline-block no-underline text-gray-600;
   &:hover {
-    @apply text-red-light;
+    @apply text-red-400;
   }
   &.nuxt-link-exact-active {
     @apply text-white;
     &:hover {
-      @apply text-red;
+      @apply text-red-500;
     }
   }
 }
@@ -73,15 +39,15 @@ nav {
 }
 
 .hero-btn {
-  @apply bg-blue text-white text-lg no-underline font-semibold px-8 py-3 rounded-full;
+  @apply bg-blue-500 text-white text-lg no-underline font-semibold px-8 py-3 rounded-full;
   &:hover {
-    @apply bg-blue-dark;
+    @apply bg-blue-600;
   }
 }
 .template-link {
-  @apply text-lg no-underline text-blue-lighter;
+  @apply text-lg no-underline text-blue-200;
   &:hover {
-    @apply text-blue-light;
+    @apply text-blue-400;
   }
   @apply mb-2;
   &:last-child {
@@ -94,28 +60,28 @@ nav {
 }
 
 .demo-headline {
-  @apply uppercase tracking-wide text-lg text-orange-dark;
+  @apply uppercase tracking-wide text-lg text-orange-600;
 }
 .demo-title {
-  @apply text-grey-darkest text-3xl;
+  @apply text-gray-800 text-3xl;
 }
 .demo-description {
-  @apply text-left text-lg text-grey-dark leading-normal;
+  @apply text-left text-lg text-gray-600 leading-normal;
 }
 
 .animation-btn {
-  @apply bg-transparent text-black rounded shadow py-2 px-4 border border-black;
+  @apply bg-transparent text-gray-900 rounded shadow py-2 px-4 border border-gray-900;
 
   &:hover {
-    @apply bg-black text-white shadow-lg border-transparent;
+    @apply bg-gray-900 text-white shadow-lg border-transparent;
   }
   &:disabled {
-    @apply bg-grey-light text-grey;
+    @apply bg-gray-400 text-gray-500;
   }
 }
 
 .animation-container {
-  @apply border border-pink-darkest;
+  @apply border border-pink-900;
 }
 .main-animation-container {
   @apply animation-container;
@@ -129,28 +95,3 @@ nav {
   width: 400px;
   height: 300px;
 }
-
-/**
-  * This injects all of Tailwind's utility classes, generated based on your
-  * config file.
-  *
-  * If using `postcss-import`, use this import instead:
-  *
-  * @import "tailwindcss/utilities";
-  */
-@tailwind utilities;
-
-/**
-  * Here you would add any custom utilities you need that don't come out of the
-  * box with Tailwind.
-  *
-  * Example :
-  *
-  * .bg-pattern-graph-paper { ... }
-  * .skew-45 { ... }
-  *
-  * Or if using a preprocessor or `postcss-import`:
-  *
-  * @import "utilities/background-patterns";
-  * @import "utilities/skew-transforms";
-  */

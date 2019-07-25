@@ -11,7 +11,7 @@
         <p class="demo-description">
           The amazing following form snake animation was created by Mikael Ainalem
           and the whole process is described
-          <a class="uppercase no-underline text-blue-dark hover:text-blue-darker"
+          <a class="uppercase no-underline text-blue-600 hover:text-blue-800"
             href="https://blog.prototypr.io/how-to-create-the-snake-highlight-animation-with-anime-js-bf9c6cb66434">
           here</a>!
         </p>
@@ -84,7 +84,7 @@ export default class AnimeJsDemo extends Vue {
   @apply flex flex-col items-center justify-center;
 }
 .demo-label {
-  @apply text-lg text-grey-darkest;
+  @apply text-lg text-gray-800;
 }
 
 .deer-rabbit {

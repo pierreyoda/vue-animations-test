@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col">
     <nav v-clickaway="closeNav"
-      class="flex items-center justify-between flex-wrap bg-grey-darkest p-6 w-full">
-      <div class="relative w-full lg:w-auto flex items-center justify-start sm:justify-center lg:justify-start flex-no-shrink mr-6">
-        <span class="text-lg sm:text-2xl text-green-light font-bold">Vue.js</span>
+      class="flex items-center justify-between flex-wrap bg-gray-800 p-6 w-full">
+      <div class="relative w-full lg:w-auto flex items-center justify-start sm:justify-center lg:justify-start flex-shrink-0 mr-6">
+        <span class="text-lg sm:text-2xl text-green-400 font-bold">Vue.js</span>
         <h1 class="text-lg sm:text-xl md:text-2xl text-white pl-2 font-semibold">Animations Test</h1>
         <div class="block lg:hidden nav-toggle-container">
           <div @click="toggleNav" class="nav-toggle hover:text-white hover:border-white">
@@ -16,7 +16,7 @@
       </div>
       <transition name="nav-appear">
         <div v-if="menuVisible" class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0">
-          <ul class="list-reset lg:flex justify-end flex-1 items-center text-center">
+          <ul class="lg:flex justify-end flex-1 items-center text-center">
             <li v-for="tabLink in tabLinks" :key="tabLink.to" class="nav-link-item">
               <nuxt-link @click.native="closeNav" class="nav-link" :to="tabLink.to">
                 {{ tabLink.label }}
@@ -24,7 +24,7 @@
             </li>
             <li class="flex flex-row items-center justify-center nav-link-item">
               <img src="/logo-github.png" class="nav-link-icon">
-              <a class="inline-block no-underline text-grey-light hover:text-grey" href="https://github.com/pierreyoda/vue-animations-test">
+              <a class="inline-block no-underline text-gray-400 hover:text-gray-500" href="https://github.com/pierreyoda/vue-animations-test">
                 Github
               </a>
             </li>
@@ -32,7 +32,7 @@
         </div>
       </transition>
     </nav>
-    <div id="content" :class="{ loading: firstResize }" class="w-full shadow-lg bg-blue-lightest">
+    <div id="content" :class="{ loading: firstResize }" class="w-full shadow-lg bg-blue-100">
       <nuxt/>
     </div>
   </div>

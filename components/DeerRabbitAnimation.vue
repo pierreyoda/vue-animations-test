@@ -258,8 +258,7 @@ export default class DeerRabbitAnimation extends Vue {
 
 <style lang="scss" scoped>
 svg {
-  display: block;
-  margin: 0 auto;
+  @apply block my-0 mx-auto;
 }
 
 path {

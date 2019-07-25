@@ -150,13 +150,12 @@ $not-favorite-color: #dbdedd;
 $sprinkles-color: #f98247;
 
 .favorite {
-  position: relative;
+  @apply relative inline-block;
   transform: scale(1);
-  display: inline-block;
   transform-origin: 50% 0%;
   &:not(.animating) {
     .favorite__inactive, .favorite__active {
-      cursor: pointer;
+      @apply cursor-pointer;
     }
   }
 }
@@ -182,7 +181,7 @@ $sprinkles-color: #f98247;
 }
 
 .favorite__sprinkle {
-  position: absolute;
+  @apply absolute;
   top: 50px;
   left: 52px;
   transform: rotate(36deg);
@@ -205,7 +204,7 @@ $sprinkles-color: #f98247;
 }
 
 .favorite__sprinkle-circle {
-  position: absolute;
+  @apply absolute rounded-full;
   content: '';
   background: $sprinkles-color;
   border-radius: 50%;

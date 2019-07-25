@@ -155,7 +155,7 @@ export default class FormSnakeAnimation extends Vue {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .form-snake-container {
   @apply mx-auto relative;
   height: 320px;
@@ -169,52 +169,46 @@ export default class FormSnakeAnimation extends Vue {
 .form-snake-svg {
   @apply absolute;
   width: 320px;
-}
-.form-snake-svg path {
-  fill: none;
-  stroke: url(#snakeLinearGradient);
-  stroke-width: 4;
-  stroke-dasharray: 240 1386;
+  path {
+    fill: none;
+    stroke: url(#snakeLinearGradient);
+    stroke-width: 4;
+    stroke-dasharray: 240 1386;
+  }
 }
 
 .form-snake {
   @apply absolute;
   margin: 40px;
-}
-
-.form-snake label {
-  display: block;
-  color: #c2c2c5;
-  font-size: 14px;
-  height: 16px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-}
-
-.form-snake input {
-  @apply w-full bg-transparent;
-  height: 30px;
-  line-height: 30px;
-  color: #f2f2f2;
-  font-size: 20px;
-  outline: none !important;
-}
-.form-snake input:not([type="submit"]) {
-  @apply border-b border-grey;
-}
-
-.form-snake .submit {
-  @apply cursor-pointer;
-  color: #707075;
-  margin-top: 42px;
-  transition: color 300ms;
-}
-
-.form-snake .submit:focus,
-.form-snake .submit:hover {
-  color: #f2f2f2;
-}
-.form-snake .submit:active {
-  color: #d0d0d2;
+  label {
+    display: block;
+    color: #c2c2c5;
+    font-size: 14px;
+    height: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+  input {
+    @apply w-full bg-transparent outline-none;
+    height: 30px;
+    line-height: 30px;
+    color: #f2f2f2;
+    font-size: 20px;
+    &:not([type="submit"]) {
+      @apply border-b border-gray-500;
+    }
+  }
+  .submit {
+    @apply cursor-pointer;
+    color: #707075;
+    margin-top: 42px;
+    transition: color 300ms;
+    &:focus, &:hover {
+      color: #f2f2f2;
+    }
+    &:active {
+      color: #d0d0d2;
+    }
+  }
 }
 </style>

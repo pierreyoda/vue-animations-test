@@ -106,34 +106,31 @@ export default class SubmitAnimation extends Vue {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .button-container {
-  @apply relative w-full;
   background-color: #1d1f20;
+  @apply relative w-full;
 }
 
 .button {
-  @apply absolute text-center my-0 mx-auto cursor-pointer;
+  top: 50%;
+  @apply absolute left-0 right-0;
+  @apply my-0 mx-auto text-center cursor-pointer;
   background-color: #474a59;
   height: 80px;
   width: 200px;
-  top: 50%;
   transform: translateY(-50%);
-  left: 0;
-  right: 0;
   border-radius: 4px;
 }
 
 .text {
-  @apply absolute font-bold text-xl text-grey-light;
   top: 50%;
+  @apply absolute left-0 right-0;
+  @apply absolute font-bold text-xl text-gray-400;
   transform: translateY(-52%);
-  left: 0;
-  right: 0;
 }
 
 .progress-bar {
-  @apply absolute cursor-pointer bg-orange-dark;
   height: 10px;
   width: 0;
   right: 0;
@@ -141,15 +138,15 @@ export default class SubmitAnimation extends Vue {
   left: 50%;
   border-radius: 200px;
   transform: translateY(-50%) translateX(-50%);
+  @apply absolute cursor-pointer bg-orange-600;
 }
 
 svg {
-  @apply absolute;
-  width: 30px;
   top: 50%;
-  transform: translateY(-50%) translateX(-50%);
   left: 50%;
-  right: 0;
+  @apply absolute right-0;
+  width: 30px;
+  transform: translateY(-50%) translateX(-50%);
 }
 
 .check {

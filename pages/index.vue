@@ -1,15 +1,15 @@
 <template>
-  <div class="w-full bg-grey-lighter">
+  <div class="w-full bg-gray-200">
     <section class="container max-w-xl mx-auto py-24 flex flex-col lg:flex-row items-center justify-center flex-wrap">
       <div class="w-full md:w-2/3 text-center px-12">
-        <h2 class="text-2xl md:text-4xl text-left text-grey-darkest mb-12">
+        <h2 class="text-2xl md:text-4xl text-left text-gray-800 mb-12">
           Vue + Animations POCs
         </h2>
-        <p class="text-md md:text-lg text-left text-grey-dark mb-6 leading-loose">
+        <p class="text-md md:text-lg text-left text-gray-600 mb-6 leading-loose">
           Exploration of common solutions for displaying advanced animations in Vue.js.<br>
           Generated as a static website using Nuxt.js.
         </p>
-        <div class="flex flex-row flex-wrap items-center justify-center lg:justify-start">
+        <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-start">
           <nuxt-link class="hero-btn mr-12" to="/lottie">Lottie</nuxt-link>
           <nuxt-link class="hero-btn" to="/anime">Anime.js</nuxt-link>
         </div>
@@ -23,7 +23,7 @@
       </div>
     </section>
     <section class="section-templates py-8">
-      <h3 class="section-title text-grey-light">Templates</h3>
+      <h3 class="section-title text-gray-400">Templates</h3>
       <div class="container mx-auto px-4 text-center flex flex-col text-white">
         <p class="mb-6 leading-normal">
           This website also showcases the possibilities of Tailwind CSS.<br>
@@ -37,9 +37,9 @@
         </a>
       </div>
     </section>
-    <section class="w-full py-8 bg-grey-lightest">
-      <h3 class="section-title text-grey-dark">Stack</h3>
-      <div class="flex flex-wrap items-center justify-center -m-6">
+    <section class="w-full py-8 bg-gray-100">
+      <h3 class="section-title text-gray-600">Stack</h3>
+      <div class="flex flex-wrap items-center justify-center m-6">
         <div v-for="(item, i) in stackItems" :key="i"
           class="w-full lg:w-1/2 py-6 px-24">
           <a class="no-underline" :href="item.link">
@@ -90,28 +90,28 @@ export default class Index extends Vue {
     description: "Modern Javascript superset offering static type checking.",
     img: "logo-ts.png",
     link: "https://www.typescriptlang.org/",
-    bgClass: "bg-blue-dark",
+    bgClass: "bg-blue-600",
   },
   {
     label: "Vue.js",
     description: "Simple, versatile and performant front-end framework.",
     img: "logo-vue.png",
     link: "https://vuejs.org/",
-    bgClass: "bg-green-dark",
+    bgClass: "bg-green-600",
   },
   {
     label: "Nuxt.js",
     description: "Server-Side Rendering for Vue.js.",
     img: "logo-nuxt.png",
     link: "https://nuxtjs.org/",
-    bgClass: "bg-red-light",
+    bgClass: "bg-red-500",
   },
   {
     label: "Tailwind CSS",
     description: "Utility-first CSS framework for fash & cohesive prototyping.",
     img: "logo-tailwind.png",
     link: "https://tailwindcss.com",
-    bgClass: "bg-pink-dark",
+    bgClass: "bg-pink-500",
   },
 ];
 
@@ -137,7 +137,7 @@ export default class Index extends Vue {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .section-templates {
   background-color: #696360;
 }

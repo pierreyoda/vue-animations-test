@@ -139,13 +139,13 @@ export default class LottieDemo extends Vue {
 
   async loadAnimations() {
     this.animations = await loadAnimations([
-      { filename: "done", backgroundClass: "bg-indigo" },
-      { filename: "dots", backgroundClass: "bg-pink-darker" },
-      { filename: "fireworks", backgroundClass: "bg-blue-darkest" },
-      { filename: "gears", backgroundClass: "bg-yellow-dark" },
-      { filename: "objects", backgroundClass: "bg-orange-light" },
-      { filename: "search", backgroundClass: "bg-red-light" },
-      { filename: "world", backgroundClass: "bg-blue-light" },
+      { filename: "done", backgroundClass: "bg-indigo-500" },
+      { filename: "dots", backgroundClass: "bg-pink-800" },
+      { filename: "fireworks", backgroundClass: "bg-blue-900" },
+      { filename: "gears", backgroundClass: "bg-yellow-600" },
+      { filename: "objects", backgroundClass: "bg-orange-400" },
+      { filename: "search", backgroundClass: "bg-red-400" },
+      { filename: "world", backgroundClass: "bg-blue-400" },
     ]);
     this.animationLoadingPercentage = 100 / (Object.keys(this.animations).length || 1);
     this.dataLoaded = true;
