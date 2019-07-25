@@ -79,9 +79,13 @@ nav {
   }
 }
 .template-link {
-  @apply no-underline text-blue-lighter;
+  @apply text-lg no-underline text-blue-lighter;
   &:hover {
     @apply text-blue-light;
+  }
+  @apply mb-2;
+  &:last-child {
+    @apply mb-0;
   }
 }
 .hero-demo-container {
