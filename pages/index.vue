@@ -1,8 +1,8 @@
 <template>
   <div class="w-full bg-gray-200">
-    <section class="container max-w-xl mx-auto py-24 flex flex-col lg:flex-row items-center justify-center flex-wrap">
+    <section class="container max-w-5xl mx-auto py-24 flex flex-col lg:flex-row items-center justify-center flex-wrap">
       <div class="w-full md:w-2/3 text-center px-12">
-        <h2 class="text-2xl md:text-4xl text-left text-gray-800 mb-12">
+        <h2 class="font-bold text-2xl md:text-4xl text-left text-gray-800 mb-12">
           Vue + Animations POCs
         </h2>
         <p class="text-md md:text-lg text-left text-gray-600 mb-6 leading-loose">
@@ -10,7 +10,7 @@
           Generated as a static website using Nuxt.js.
         </p>
         <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-start">
-          <nuxt-link class="hero-btn mr-12" to="/lottie">Lottie</nuxt-link>
+          <nuxt-link class="hero-btn mb-3 lg:mr-12 lg:mb-0" to="/lottie">Lottie</nuxt-link>
           <nuxt-link class="hero-btn" to="/anime">Anime.js</nuxt-link>
         </div>
       </div>
@@ -85,35 +85,35 @@ export default class Index extends Vue {
   heroFormSent = false;
   heroAnimationOptions: LottieOptions = {};
   readonly stackItems: StackItem[] = [
-  {
-    label: "Typescript",
-    description: "Modern Javascript superset offering static type checking.",
-    img: "logo-ts.png",
-    link: "https://www.typescriptlang.org/",
-    bgClass: "bg-blue-600",
-  },
-  {
-    label: "Vue.js",
-    description: "Simple, versatile and performant front-end framework.",
-    img: "logo-vue.png",
-    link: "https://vuejs.org/",
-    bgClass: "bg-green-600",
-  },
-  {
-    label: "Nuxt.js",
-    description: "Server-Side Rendering for Vue.js.",
-    img: "logo-nuxt.png",
-    link: "https://nuxtjs.org/",
-    bgClass: "bg-red-500",
-  },
-  {
-    label: "Tailwind CSS",
-    description: "Utility-first CSS framework for fash & cohesive prototyping.",
-    img: "logo-tailwind.png",
-    link: "https://tailwindcss.com",
-    bgClass: "bg-pink-500",
-  },
-];
+    {
+      label: "Typescript",
+      description: "Modern Javascript superset offering static type checking.",
+      img: "logo-ts.png",
+      link: "https://www.typescriptlang.org/",
+      bgClass: "bg-blue-600",
+    },
+    {
+      label: "Vue.js",
+      description: "Simple, versatile and performant front-end framework.",
+      img: "logo-vue.png",
+      link: "https://vuejs.org/",
+      bgClass: "bg-green-600",
+    },
+    {
+      label: "Nuxt.js",
+      description: "Server-Side Rendering for Vue.js.",
+      img: "logo-nuxt.png",
+      link: "https://nuxtjs.org/",
+      bgClass: "bg-red-500",
+    },
+    {
+      label: "Tailwind CSS",
+      description: "Utility-first CSS framework for fash & cohesive prototyping.",
+      img: "logo-tailwind.png",
+      link: "https://tailwindcss.com",
+      bgClass: "bg-pink-500",
+    },
+  ];
 
   async mounted() {
     this.$nextTick(this.loadAnimations);
@@ -143,6 +143,6 @@ export default class Index extends Vue {
 }
 
 .section-title {
-  @apply text-center text-3xl mb-8;
+  @apply font-bold text-center text-3xl mb-8;
 }
 </style>

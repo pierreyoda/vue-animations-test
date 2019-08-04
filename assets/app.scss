@@ -15,7 +15,7 @@ nav {
 }
 
 .nav-link-item {
-  @apply mr-3 py-2 px-4;
+  @apply mr-3 py-2 px-4 cursor-pointer;
   &:hover {
     .nav-link-icon {
       @apply opacity-50;
@@ -63,13 +63,14 @@ nav {
   @apply uppercase tracking-wide text-lg text-orange-600;
 }
 .demo-title {
-  @apply text-gray-800 text-3xl;
+  @apply font-bold text-gray-800 text-3xl;
 }
 .demo-description {
   @apply text-left text-lg text-gray-600 leading-normal;
 }
 
 .animation-btn {
+  @apply flex flex-row items-center;
   @apply bg-transparent text-gray-900 rounded shadow py-2 px-4 border border-gray-900;
 
   &:hover {

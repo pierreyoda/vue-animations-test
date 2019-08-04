@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="min-h-screen flex flex-col">
     <nav v-clickaway="closeNav"
       class="flex items-center justify-between flex-wrap bg-gray-800 p-6 w-full">
       <div class="relative w-full lg:w-auto flex items-center justify-start sm:justify-center lg:justify-start flex-shrink-0 mr-6">
@@ -32,7 +32,7 @@
         </div>
       </transition>
     </nav>
-    <div id="content" :class="{ loading: firstResize }" class="w-full shadow-lg bg-blue-100">
+    <div id="content" :class="{ loading: firstResize }" class="flex-grow w-full shadow-lg bg-blue-100">
       <nuxt/>
     </div>
   </div>

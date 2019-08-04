@@ -74,7 +74,7 @@ export default class AnimeJsDemo extends Vue {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .demo-container {
   @apply flex flex-col items-center justify-center;
 }
@@ -83,7 +83,7 @@ export default class AnimeJsDemo extends Vue {
 }
 
 .deer-rabbit {
-  @apply h-auto;
   width: 300px;
+  @apply h-auto;
 }
 </style>
