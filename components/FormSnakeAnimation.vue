@@ -33,12 +33,7 @@
 </template>
 
 <script lang="ts">
-// TODO: add typings when they are updated to v3
-let anime: any;
-if (process.browser) {
-  // tslint:disable-next-line: no-var-requires
-  anime = require("animejs").default;
-}
+import anime, { AnimInput } from "animejs";
 import { Component, Vue } from "vue-property-decorator";
 
 /* "snake highlight" form example taken from: https://codepen.io/ainalem/pen/EQXjOR
@@ -68,21 +63,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 // TODO: can we use PostCSS+SCSS in Single File Components?
 
 type AnimationState = "field1" | "field2" | "submit";
-interface AnimationParams {
-  targets: string;
-  strokeDashoffset: {
-    value: string | number;
-    duration: number;
-    easing: string;
-  };
-  strokeDasharray: {
-    value: string | number;
-    duration: number;
-    easing: string;
-  };
-}
 const snakeAnimationParams: {
-  [state in AnimationState]: AnimationParams;
+  [state in AnimationState]: AnimInput;
 } = {
   field1: {
     targets: "#snakePath",

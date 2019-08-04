@@ -42,12 +42,7 @@
 </template>
 
 <script lang="ts">
-// TODO: add typings when they are updated to v3
-let anime: any;
-if (process.browser) {
-  // tslint:disable-next-line: no-var-requires
-  anime = require("animejs").default;
-}
+import anime from "animejs";
 import { Component, Vue } from "vue-property-decorator";
 
 import { getPageTransitionKey } from "@/utils";

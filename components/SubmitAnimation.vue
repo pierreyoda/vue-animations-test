@@ -12,12 +12,7 @@
 </template>
 
 <script lang="ts">
-// TODO: add typings when they are updated to v3
-let anime: any;
-if (process.browser) {
-  // tslint:disable-next-line: no-var-requires
-  anime = require("animejs").default;
-}
+import anime from "animejs";
 import { Component, Vue } from "vue-property-decorator";
 
 /* submit animation example taken from: https://codepen.io/andrewmillen/details/MoKLob
@@ -55,7 +50,7 @@ export default class SubmitAnimation extends Vue {
       autoplay: false,
       loop: false,
     });
-    const pathEl = this.$refs.path;
+    const pathEl = this.$refs.path as SVGPathElement;
     this.strokeDashOffset = anime.setDashoffset(pathEl);
     this.timeline
       .add({
