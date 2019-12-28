@@ -1,11 +1,11 @@
-import NuxtConfiguration from "@nuxt/config";
+import { Configuration } from "@nuxt/types";
 
 // tslint:disable-next-line: no-var-requires
 const pkg = require("./package");
 
 const production = process.env.NODE_ENV === "production";
 
-const config: NuxtConfiguration = {
+const config: Configuration = {
   mode: "universal",
 
   /*
@@ -100,6 +100,10 @@ const config: NuxtConfiguration = {
     // https://championswimmer.in/vuex-module-decorators/pages/installation.html#es5-transpilation
     transpile: ["vuex-module-decorator"],
   },
+
+  buildModules: [
+    "@nuxt/typescript-build",
+  ],
 
   vue: {
     config: {

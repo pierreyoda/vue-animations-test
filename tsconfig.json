@@ -8,10 +8,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
-    "typeRoots": [
-      "node_modules/@types",
-      "node_modules/@nuxt",
-      "types"
+    "types": [
+      "@nuxt/types"
     ],
     "paths": {
       "@/*": [
